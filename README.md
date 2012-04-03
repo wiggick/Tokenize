@@ -32,26 +32,20 @@ And next you can use the plugin like this :
 
 ### Options :
 
-**datas:**
-select or an url for ajax search (must return json).
-_Default is "select"_
+**datas:** select or an url for ajax search (must return json). _Default is "select"_
 
-**searchParam**
-Parameter name for the ajax search.
-_Default is "search"_
+**searchParam** Parameter name for the ajax search. _Default is "search"_
 
-**validator**
-This parameter is a keyCode to validate a token while typing.
-_Default is 188 (",")_
+**validator** This parameter is a keyCode to validate a token while typing. _Default is 188 (",")_
 
-**newElements**
-Authorize new token.
-_Default is true_
+**newElements** Authorize new token. _Default is true_
 
-**size**
-The size of the dropdown.
-_Default is 10_
+**size** The size of the dropdown. _Default is 10_
 
-**maxChars**
-The search input max length.
-_Default is 50_
+**maxChars** The search input max length. _Default is 50_
+
+**onTokenAdd** Add token event.
+
+**onTokenNew** Add new token event (not present in the select).
+
+**onTokenRemove** Remove token event.

@@ -231,6 +231,7 @@
 
             var token = $('<li />'),
                 close = $('<a />'),
+                is_new = false,
                 $this = this;
 
             if($('option[value="' + el.attr('data') + '"]', this.el).length){
@@ -243,6 +244,7 @@
                 option.html(el.html());
 
                 this.el.append(option);
+                is_new = true;
             }
 
             close.html('×');
@@ -263,6 +265,12 @@
             token.prepend(close);
             token.insertBefore(this.searchItem);
 
+            if(is_new){
+                this.options.onTokenNew(el);
+            } else {
+                this.options.onTokenAdd(el);
+            }
+
             this.cleanInput();
             this.closeDropdown();
 
@@ -279,6 +287,8 @@
             }
 
             token.remove();
+            this.options.onTokenRemove(token);
+
             this.updateInput();
             this.closeDropdown();
 
@@ -516,7 +526,11 @@
         validator: 188,
         newElements: true,
         size: 10,
-        maxChars: 50
+        maxChars: 50,
+
+        onTokenAdd: function(token){},
+        onTokenNew: function(token){},
+        onTokenRemove: function(token){}
 
     };
 
