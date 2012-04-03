@@ -20,8 +20,13 @@
 (function($, tokenize){
 
     $.tokenize = function(opts){
+
+        if(opts == undefined)
+        {
+            opts = $.fn.tokenize.defaults;
+        }
+
         this.options = opts;
-        this.cache = {};
     };
 
     $.extend($.tokenize.prototype, {
@@ -40,7 +45,6 @@
         createHtml: function(){
 
             var $this = this;
-            this.dropdownOpen = false;
             this.mouseOnContainer = false;
 
             // Container div
@@ -76,13 +80,14 @@
 
             // Configure dropdown
             this.dropdown.width(this.tokens.width());
-            this.dropdown.css('top', this.tokens.outerHeight() - this.tokens.pixels('border-bottom-width'));
+            this.dropdown.css('top', this.tokens.outerHeight() - this.tokens.pixels('border-top-width'));
 
             if(this.options.datas == 'select')
             {
                 this.searchInput.bind('focus', function(){
                     $this.cleanPendingDelete();
-                    $this.createDropdown();
+                    $this.fillDropdown();
+                    $this.showDropdown();
                 });
             }
 
@@ -92,7 +97,7 @@
 
             this.searchInput.bind('blur', function(){
                 if(!$this.mouseOnContainer){
-                    $this.removeDropdown();
+                    $this.closeDropdown();
                 }
             });
 
@@ -125,29 +130,27 @@
 
         },
 
-        createDropdown: function(){
+        showDropdown: function(){
 
-            if(!this.dropdownOpen){
-                this.dropdownOpen = true;
-                this.dropdown.show();
-
-                if(this.options.datas == 'select'){
-                    this.fillDropdown();
-                }
-            }
+            this.dropdown.show();
+            this.updateDropdown();
 
         },
 
         fillDropdown: function(){
 
+            this.cleanDropdown();
             var $this = this;
 
             $('option', this.el).not(':selected').each(function(){
                 $this.addDropdownItem($(this).val(), $(this).html());
-                $this.cache[$(this).val()] = $(this).html();
             });
 
-            this.updateDropdown();
+        },
+
+        cleanDropdown: function(){
+
+            this.dropdown.html('');
 
         },
 
@@ -161,27 +164,28 @@
 
             if(item_count > 0)
             {
-                item_height = $('li:first-child', this.dropdown).Height();
+                item_height = $('li:first-child', this.dropdown).outerHeight();
 
                 if(item_count >= this.options.size){
                     this.dropdown.height(item_height * this.options.size);
-                } else {
-                    this.dropdown.height(item_height * item_count);
                 }
             }
             else
             {
-                this.removeDropdown();
+                this.closeDropdown();
             }
         },
 
-        removeDropdown: function(){
+        closeDropdown: function(clean){
 
-            if(this.dropdownOpen){
-                this.dropdown.html('');
-                this.dropdown.hide();
-                this.cache = {};
-                this.dropdownOpen = false;
+            if(clean == undefined){
+                clean = true;
+            }
+
+            this.dropdown.hide();
+
+            if(clean){
+                this.cleanDropdown();
             }
 
         },
@@ -260,7 +264,7 @@
             token.insertBefore(this.searchItem);
 
             this.cleanInput();
-            this.removeDropdown();
+            this.closeDropdown();
 
         },
 
@@ -276,7 +280,7 @@
 
             token.remove();
             this.updateInput();
-            this.removeDropdown();
+            this.closeDropdown();
 
         },
 
@@ -335,7 +339,7 @@
                                 $('li.Token:last', this.tokens).addClass('PendingDelete');
                             }
                         } else if(this.searchInput.val().length == 1) {
-                            this.removeDropdown();
+                            this.closeDropdown();
                         }
                         break;
 
@@ -354,7 +358,7 @@
                     // ESC
                     case 27:
                         this.cleanInput();
-                        this.removeDropdown();
+                        this.closeDropdown();
                         this.cleanPendingDelete();
                         break;
 
@@ -446,39 +450,41 @@
             var $this = this;
 
             if(this.options.datas == 'select'){
-
                 var found = false,
                     regexp = new RegExp($this.searchInput.val().replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), 'i');
 
-                this.createDropdown();
-                this.dropdown.html('');
+                this.cleanDropdown();
 
-                $.each($this.cache, function(index, value){
-                    if(regexp.test(value)){
-                        $this.addDropdownItem(index, value);
+                $('option', this.el).not(':selected').each(function(){
+                    if(regexp.test($(this).html())){
+                        $this.addDropdownItem($(this).attr('value'), $(this).html());
                         found = true;
                     }
                 });
 
                 if(found){
+                    this.showDropdown();
                     $('li:first', this.dropdown).addClass('Highlight');
+                    this.updateDropdown();
+                } else {
+                    this.closeDropdown();
                 }
-
-                this.updateDropdown();
             }
             else
             {
                 $.getJSON(this.options.datas, this.options.searchParam + "=" + this.searchInput.val(), function(data){
                     if(data){
-                        $this.createDropdown();
-                        $this.dropdown.html('');
+                        $this.cleanDropdown();
 
                         $.each(data, function(key, val){
                             $this.addDropdownItem(key, val);
                         });
 
+                        $this.showDropdown();
                         $('li:first', $this.dropdown).addClass('Highlight');
                         $this.updateDropdown();
+                    } else {
+                        $this.closeDropdown();
                     }
                 });
             }
@@ -487,6 +493,11 @@
     });
 
     $.fn.tokenize = function(options){
+
+        if(options == undefined)
+        {
+            options = {};
+        }
 
         var opt = $.extend({}, $.fn.tokenize.defaults, options);
         var obj = new $.tokenize(opt);
