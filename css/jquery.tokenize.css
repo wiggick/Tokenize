@@ -44,7 +44,7 @@ div.Tokenize ul.Tokens li.SearchField
 
 div.Tokenize ul.Tokens li.Token
 {
-    margin: 2px 0px 2px 2px;
+    margin: 2px 0px 0px 2px;
     border: 1px solid #ccd5e3;
     background-color: #eff2f7;
     line-height: 16px;
@@ -57,7 +57,10 @@ div.Tokenize ul.Tokens li.Token
 
 div.Tokenize ul.Tokens li.Token.PendingDelete
 {
-    background-color: red;
+    opacity : 0.5;
+    -moz-opacity : 0.5;
+    -ms-filter: "alpha(opacity=50)";
+    filter : alpha(opacity=50);
 }
 
 div.Tokenize ul.Tokens li.Token a.Close
@@ -83,7 +86,7 @@ div.Tokenize ul.Tokens li.SearchField
 div.Tokenize ul.Tokens li.SearchField input
 {
     border: 0;
-    margin: 1px 0;
+    margin: 1px 0 0 0;
     line-height: 14px;
     padding: 3px;
     outline: none;

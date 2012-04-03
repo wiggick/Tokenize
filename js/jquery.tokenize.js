@@ -22,7 +22,7 @@
     $.tokenize = function(opts){
         this.options = opts;
         this.cache = {};
-    }
+    };
 
     $.extend($.tokenize.prototype, {
 
@@ -77,14 +77,14 @@
 
             if(this.options.datas == 'select')
             {
-                this.searchInput.bind('click focus', function(){
-                    $('li.Token:last', $this.tokens).addClass('PendingDelete');
+                this.searchInput.bind('focus', function(){
+                    $this.cleanPendingDelete();
                     $this.createDropdown();
                 });
             }
 
-            this.tokens.bind('click', function(e){
-                $this.searchInput.focus();
+            this.tokens.bind('click', function(){
+                $this.searchInput.get(0).focus();
             });
 
             this.searchInput.bind('blur', function(){
@@ -127,7 +127,10 @@
             if(!this.dropdownOpen){
                 this.dropdownOpen = true;
                 this.dropdown.show();
-                this.fillDropdown();
+
+                if(this.options.datas == 'select'){
+                    this.fillDropdown();
+                }
             }
 
         },
@@ -155,7 +158,7 @@
 
             if(item_count > 0)
             {
-                item_height = $('li:first-child', this.dropdown).outerHeight();
+                item_height = $('li:first-child', this.dropdown).Height();
 
                 if(item_count >= this.options.size){
                     this.dropdown.height(item_height * this.options.size);
@@ -211,6 +214,12 @@
 
         },
 
+        cleanPendingDelete: function(){
+
+            $('li.PendingDelete', this.tokens).removeClass('PendingDelete');
+
+        },
+
         addToken: function(el){
 
             var token = $('<li />'),
@@ -244,7 +253,7 @@
             }
 
             token.append('<span>' + el.html() + '</span>');
-            token.append(close);
+            token.prepend(close);
             token.insertBefore(this.searchItem);
 
             this.cleanInput();
@@ -336,13 +345,14 @@
                         } else {
                             this.addCustomToken();
                         }
-
+                        this.cleanPendingDelete();
                         break;
 
                     // ESC
                     case 27:
                         this.cleanInput();
                         this.removeDropdown();
+                        this.cleanPendingDelete();
                         break;
 
                     // Go up
@@ -358,7 +368,7 @@
                         break;
 
                     default:
-                        $('li.PendingDelete', this.tokens).removeClass('PendingDelete');
+                        this.cleanPendingDelete();
                         break;
                 }
             }
@@ -384,7 +394,7 @@
 
         addCustomToken: function(){
 
-            if(this.options.newElements)
+            if(this.options.newElements && this.searchInput.val())
             {
                 if($('li[data="' + this.searchInput.val() + '"]', this.tokens).length)
                 {
@@ -456,15 +466,17 @@
             else
             {
                 $.getJSON(this.options.datas, this.options.searchParam + "=" + this.searchInput.val(), function(data){
-                    $this.createDropdown();
-                    $this.dropdown.html('');
+                    if(data){
+                        $this.createDropdown();
+                        $this.dropdown.html('');
 
-                    $.each(data, function(key, val){
-                        $this.addDropdownItem(key, val);
-                    });
+                        $.each(data, function(key, val){
+                            $this.addDropdownItem(key, val);
+                        });
 
-                    $('li:first', $this.dropdown).addClass('Highlight');
-                    $this.updateDropdown();
+                        $('li:first', $this.dropdown).addClass('Highlight');
+                        $this.updateDropdown();
+                    }
                 });
             }
         }
