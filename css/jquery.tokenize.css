@@ -97,6 +97,7 @@ div.Tokenize ul.Dropdown
 {
     position: absolute;
     border: 1px solid #bbb;
+    background-color: #fff;
     overflow-y: auto;
     display: none;
 
@@ -114,7 +115,6 @@ div.Tokenize ul.Dropdown li
     white-space: nowrap;
     overflow: hidden;
     cursor: pointer;
-    background-color: #fff;
 }
 
 div.Tokenize ul.Dropdown li.Highlight

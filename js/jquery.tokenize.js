@@ -162,18 +162,16 @@
                 item_count++;
             });
 
-            if(item_count > 0)
-            {
+            if(item_count > 0){
                 item_height = $('li:first-child', this.dropdown).outerHeight();
 
                 if(item_count >= this.options.size){
                     this.dropdown.height(item_height * this.options.size);
                 }
-            }
-            else
-            {
+            } else {
                 this.closeDropdown();
             }
+
         },
 
         closeDropdown: function(clean){
