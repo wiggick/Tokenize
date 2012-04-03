@@ -1,0 +1,119 @@
+div.TokenizeMeasure,
+div.Tokenize ul.Dropdown li,
+div.Tokenize ul.Tokens li.Token,
+div.Tokenize ul.Tokens li.SearchField input
+{
+    font-family: Arial, Helvetica, Sans-Serif;
+    font-size: 12px;
+}
+
+div.Tokenize
+{
+    position: relative;
+    display: inline-block;
+    zoom: 1;
+}
+
+div.Tokenize ul
+{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-y: auto;
+}
+
+div.Tokenize ul.Tokens
+{
+    border: 1px solid #bbb;
+    background-color: #fff;
+
+    height: 22px;
+
+    -webkit-box-shadow: inset 0 1px 0 0 #e5e5e5;
+    -moz-box-shadow: inset 0 1px 0 0 #e5e5e5;
+    -o-box-shadow: inset 0 1px 0 0 #e5e5e5;
+    box-shadow: inset 0 1px 0 0 #e5e5e5;
+}
+
+div.Tokenize ul.Tokens li.Token,
+div.Tokenize ul.Tokens li.SearchField
+{
+    white-space: nowrap;
+    float: left;
+}
+
+div.Tokenize ul.Tokens li.Token
+{
+    margin: 2px 0px 2px 2px;
+    border: 1px solid #ccd5e3;
+    background-color: #eff2f7;
+    line-height: 16px;
+    padding: 0 5px;
+
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+
+div.Tokenize ul.Tokens li.Token.PendingDelete
+{
+    background-color: red;
+}
+
+div.Tokenize ul.Tokens li.Token a.Close
+{
+    font-size: 16px;
+    float: right;
+    margin-left: 5px;
+    cursor: pointer;
+    color: #a6b4ce;
+}
+
+div.Tokenize ul.Tokens li.Token a.Close:hover
+{
+    color: #000000;
+}
+
+div.Tokenize ul.Tokens li.SearchField
+{
+    margin: 0;
+    padding: 0;
+}
+
+div.Tokenize ul.Tokens li.SearchField input
+{
+    border: 0;
+    margin: 1px 0;
+    line-height: 14px;
+    padding: 3px;
+    outline: none;
+}
+
+div.Tokenize ul.Dropdown
+{
+    position: absolute;
+    border: 1px solid #bbb;
+    overflow-y: auto;
+    display: none;
+
+    -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
+    -moz-box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
+    -o-box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
+    box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
+
+    z-index: 999;
+}
+
+div.Tokenize ul.Dropdown li
+{
+    padding: 5px 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+div.Tokenize ul.Dropdown li.Highlight
+{
+    background-color: #3875d7;
+    color: #fff;
+}

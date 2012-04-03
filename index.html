@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <title>jQuery - Tokenize plugin</title>
+
+    <link rel="stylesheet" type="text/css" href="css/jquery.tokenize.css" />
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery.tokenize.js"></script>
+
+</head>
+<body>
+
+    <select class="Tokenize" multiple="multiple" size="20" style="width: 450px;">
+        <option value="ajax" selected="selected">Ajax</option>
+        <option value="javascript" selected="selected">Javascript</option>
+        <option value="php">PHP</option>
+        <option value="delphi">Delphi</option>
+        <option value="java">Java</option>
+        <option value="bash">Bash</option>
+        <option value="batch">Batch</option>
+        <option value="pascal">Pascal</option>
+        <option value="css">Cascading stylesheets</option>
+    </select>
+
+    <script type="text/javascript">
+
+        $('select.Tokenize').tokenize({ datas: 'search.php' });
+
+    </script>
+
+</body>
+</html>
