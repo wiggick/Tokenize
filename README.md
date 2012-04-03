@@ -13,7 +13,7 @@ First you have to include the source scripts and css in the head of your html pa
 And next you can use the plugin like this :
 
 ```html
-<select class="Tokenize" size="20" style="width: 450px;">
+<select class="Tokenize" multiple="multiple" size="20" style="width: 450px;">
     <option value="ajax">Ajax</option>
     <option value="javascript">Javascript</option>
     <option value="php">PHP</option>
