@@ -29,7 +29,10 @@
         init: function(element){
 
             this.el = element;
+
+            this.el.attr('multiple', 'multiple');
             this.el.hide();
+
             this.createHtml();
 
         },
