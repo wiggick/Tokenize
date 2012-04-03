@@ -346,9 +346,8 @@
                             } else {
                                 $('li.Token:last', this.tokens).addClass('PendingDelete');
                             }
-                        } else if(this.searchInput.val().length == 1) {
-                            this.closeDropdown();
                         }
+                        this.closeDropdown();
                         break;
 
                     // Return
@@ -399,6 +398,14 @@
                 case 27:
                 case 38:
                 case 40:
+                    break;
+
+                case 8:
+                    if(this.searchInput.val()){
+                        this.search();
+                    } else {
+                        this.closeDropdown();
+                    }
                     break;
                 default:
                     this.search();
