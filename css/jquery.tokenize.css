@@ -114,6 +114,7 @@ div.Tokenize ul.Dropdown li
     white-space: nowrap;
     overflow: hidden;
     cursor: pointer;
+    background-color: #fff;
 }
 
 div.Tokenize ul.Dropdown li.Highlight
