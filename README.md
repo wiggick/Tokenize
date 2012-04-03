@@ -1,4 +1,7 @@
 This jQuery plugin transform a select into a tokens input autocomplete.
+
+![](http://doc.zellerda.com/tokenize/screenshot.png)
+
 First you have to include the source scripts and css in the head of your html page :
 
 ```html
