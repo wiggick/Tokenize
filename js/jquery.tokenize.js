@@ -84,7 +84,7 @@
 
             if(this.options.datas == 'select')
             {
-                this.searchInput.bind('focus', function(){
+                this.searchInput.bind('focus click', function(){
                     $this.cleanPendingDelete();
                     $this.fillDropdown();
                     $this.showDropdown();
@@ -95,7 +95,7 @@
                 $this.searchInput.get(0).focus();
             });
 
-            this.searchInput.bind('blur', function(){
+            $('body').bind('click', function(){
                 if(!$this.mouseOnContainer){
                     $this.closeDropdown();
                 }
@@ -156,17 +156,18 @@
 
         updateDropdown: function(){
 
-            var item_count = 0, item_height;
+            var item_count = 0, item_height = 0;
 
             $('li', this.dropdown).each(function(){
                 item_count++;
             });
 
             if(item_count > 0){
-                item_height = $('li:first-child', this.dropdown).outerHeight();
-
                 if(item_count >= this.options.size){
+                    item_height = $('li:first-child', this.dropdown).outerHeight();
                     this.dropdown.height(item_height * this.options.size);
+                } else {
+                    this.dropdown.height('inherit');
                 }
             } else {
                 this.closeDropdown();
@@ -346,8 +347,9 @@
                             } else {
                                 $('li.Token:last', this.tokens).addClass('PendingDelete');
                             }
+
+                            this.closeDropdown();
                         }
-                        this.closeDropdown();
                         break;
 
                     // Return
