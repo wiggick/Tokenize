@@ -30,6 +30,16 @@ And next you can use the plugin like this :
 </script>
 ```
 
+Below an example with ajax search :
+
+```html
+<select class="Tokenize" multiple="multiple" size="20" style="width: 450px;"></select>
+
+<script type="text/javascript">
+    $('select.Tokenize').tokenize({ datas: "search.php" });
+</script>
+```
+
 ### Options :
 
 **datas:** select or an url for ajax search (must return json). _Default is "select"_

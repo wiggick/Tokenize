@@ -194,8 +194,7 @@
 
         addDropdownItem: function(key, label){
 
-            if($('li[data="' + key + '"]', this.tokens).length)
-            {
+            if($('li[data="' + key + '"]', this.tokens).length){
                 return false;
             }
 
@@ -204,7 +203,7 @@
             item.attr('data', key)
                 .html(label)
                 .bind('click', function(){
-                $this.addToken($(this));
+                    $this.addToken($(this));
             }).bind('mouseover', function(){
                 $(this).addClass('Highlight');
             }).bind('mouseout', function(){
@@ -339,15 +338,11 @@
 
         keydown: function(e){
 
-            if(e.keyCode == this.options.validator)
-            {
+            if(e.keyCode == this.options.validator){
                 e.preventDefault();
                 this.addCustomToken();
-            }
-            else
-            {
-                switch(e.keyCode)
-                {
+            } else {
+                switch(e.keyCode){
                     // Delete
                     case 8:
                         if(this.searchInput.val().length == 0){
@@ -461,8 +456,7 @@
         goDown: function(){
 
             if($('li.Highlight', this.dropdown).length > 0){
-                if(!$('li.Highlight').is('li:last-child'))
-                {
+                if(!$('li.Highlight').is('li:last-child')){
                     $('li.Highlight').removeClass('Highlight').next().addClass('Highlight');
                 }
             } else {
