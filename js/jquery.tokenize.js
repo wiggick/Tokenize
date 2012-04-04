@@ -34,10 +34,7 @@
         init: function(element){
 
             this.el = element;
-
-            this.el.attr('multiple', 'multiple');
-            this.el.hide();
-
+            this.el.attr('multiple', 'multiple').hide();
             this.createHtml();
 
         },
@@ -48,39 +45,40 @@
             this.mouseOnContainer = false;
 
             // Container div
-            this.container = $('<div />');
-            this.container.addClass('Tokenize');
-            this.container.width(this.el.width());
+            this.container = $('<div />')
+                .addClass('Tokenize')
+                .width(this.el.width());
 
             // Dropdown
-            this.dropdown = $('<ul />');
-            this.dropdown.addClass('Dropdown');
+            this.dropdown = $('<ul />')
+                .addClass('Dropdown');
 
             // List container
-            this.tokens = $('<ul />');
-            this.tokens.width(this.el.width());
-            this.tokens.addClass('Tokens');
+            this.tokens = $('<ul />')
+                .addClass('Tokens')
+                .width(this.el.width());
 
             // List item search
             this.searchItem = $('<li class="SearchField" />');
 
             // Search input
-            this.searchInput = $('<input />');
-            this.searchInput.attr('maxlength', this.options.maxChars);
+            this.searchInput = $('<input />')
+                .attr('maxlength', this.options.maxChars);
 
             // Add to HTML
             this.searchItem.append(this.searchInput);
             this.tokens.append(this.searchItem);
-            this.container.append(this.tokens);
-            this.container.append(this.dropdown);
-            this.container.insertAfter(this.el);
+            this.container
+                .append(this.tokens)
+                .append(this.dropdown)
+                .insertAfter(this.el);
 
             this.updateInput();
             this.fillDefaults();
 
             // Configure dropdown
-            this.dropdown.width(this.tokens.width());
-            this.dropdown.css('top', this.tokens.outerHeight() - this.tokens.pixels('border-top-width'));
+            this.dropdown.width(this.tokens.width())
+                .css('top', this.tokens.outerHeight() - this.tokens.pixels('border-top-width'));
 
             if(this.options.datas == 'select')
             {
@@ -198,10 +196,9 @@
 
             var item = $('<li />'), $this = this;
 
-            item.attr('data', key);
-            item.html(label);
-
-            item.bind('click', function(){
+            item.attr('data', key)
+                .html(label)
+                .bind('click', function(){
                 $this.addToken($(this));
             }).bind('mouseover', function(){
                 $(this).addClass('Highlight');
@@ -236,19 +233,19 @@
             if($('option[value="' + el.attr('data') + '"]', this.el).length){
                 $('option[value="' + el.attr('data') + '"]', this.el).attr('selected', 'selected');
             } else if(!el.is('option')) {
-                var option = $('<option />');
-                option.attr('selected', 'selected');
-                option.attr('value', el.attr('data'));
-                option.attr('data', 'custom');
-                option.html(el.html());
+                var option = $('<option />')
+                    .attr('selected', 'selected')
+                    .attr('value', el.attr('data'))
+                    .attr('data', 'custom')
+                    .html(el.html());
 
                 this.el.append(option);
                 is_new = true;
             }
 
-            close.html('×');
-            close.addClass('Close');
-            close.bind('click', function(){
+            close.html('×')
+                .addClass('Close')
+                .bind('click', function(){
                 $this.removeToken(token);
             });
 
@@ -260,9 +257,9 @@
                 token.attr('data', el.attr('data'));
             }
 
-            token.append('<span>' + el.html() + '</span>');
-            token.prepend(close);
-            token.insertBefore(this.searchItem);
+            token.append('<span>' + el.html() + '</span>')
+                .prepend(close)
+                .insertBefore(this.searchItem);
 
             if(is_new){
                 this.options.onTokenNew(el);
@@ -314,9 +311,9 @@
 
             var measure = $('<div />'), margins;
 
-            measure.css({ position: 'absolute', visibility: 'hidden' });
-            measure.addClass('TokenizeMeasure');
-            measure.html(this.searchInput.val());
+            measure.css({ position: 'absolute', visibility: 'hidden' })
+                .addClass('TokenizeMeasure')
+                .html(this.searchInput.val());
 
             $('body').append(measure);
 
@@ -426,9 +423,10 @@
                     return false;
                 }
 
-                var li = $('<li />');
-                li.attr('data', this.searchInput.val());
-                li.html(this.searchInput.val());
+                var li = $('<li />')
+                    .attr('data', this.searchInput.val())
+                    .html(this.searchInput.val());
+
                 this.addToken(li);
             }
             else
