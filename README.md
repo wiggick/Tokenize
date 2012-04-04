@@ -41,6 +41,8 @@ Below an example with ajax search :
 </script>
 ```
 
+Demo : [http://doc.zellerda.com/tokenize](http://doc.zellerda.com/tokenize)
+
 ### Options :
 
 **datas:** select or an url for ajax search (must return json). _Default is "select"_

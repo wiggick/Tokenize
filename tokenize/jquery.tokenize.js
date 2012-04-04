@@ -98,7 +98,7 @@
                 $this.searchInput.get(0).focus();
             });
 
-            $('body').bind('click', function(){
+            $(document).bind('click', function(){
                 if(!$this.mouseOnContainer){
                     $this.closeDropdown();
                 }
