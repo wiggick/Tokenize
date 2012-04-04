@@ -77,10 +77,6 @@
             this.updateInput();
             this.fillDefaults();
 
-            // Configure dropdown
-            this.dropdown.width(this.tokens.width())
-                .css('top', this.tokens.outerHeight() - this.tokens.pixels('border-top-width'));
-
             if(this.options.datas == 'select')
             {
                 this.searchInput.bind('click focus', function(){
@@ -135,7 +131,10 @@
 
         showDropdown: function(){
 
-            this.dropdown.show();
+            this.dropdown.show()
+                .width(this.tokens.width())
+                .css('top', this.tokens.outerHeight() - this.tokens.pixels('border-top-width'));
+            
             this.updateDropdown();
 
         },
