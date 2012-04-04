@@ -43,6 +43,7 @@
 
             var $this = this;
             this.mouseOnContainer = false;
+            this.tokenDelete = false;
 
             // Container div
             this.container = $('<div />')
@@ -82,10 +83,14 @@
 
             if(this.options.datas == 'select')
             {
-                this.searchInput.bind('focus click', function(){
-                    $this.cleanPendingDelete();
-                    $this.fillDropdown();
-                    $this.showDropdown();
+                this.searchInput.bind('click focus', function(){
+                    if(!$this.tokenDelete){
+                        $this.cleanPendingDelete();
+                        $this.fillDropdown();
+                        $this.showDropdown();
+                    } else {
+                        $this.tokenDelete = false;
+                    }
                 });
             }
 
@@ -246,7 +251,7 @@
             close.html('×')
                 .addClass('Close')
                 .bind('click', function(){
-                $this.removeToken(token);
+                    $this.removeToken(token, true);
             });
 
             token.addClass('Token');
@@ -272,7 +277,11 @@
 
         },
 
-        removeToken: function(token){
+        removeToken: function(token, disable_click){
+
+            if(disable_click == undefined){
+                disable_click = false;
+            }
 
             var option = $('option[value="' + token.attr('data') + '"]', this.el);
 
@@ -287,6 +296,10 @@
 
             this.updateInput();
             this.closeDropdown();
+
+            if(disable_click){
+                this.tokenDelete = true;
+            }
 
         },
 
@@ -389,36 +402,35 @@
         },
 
         keyup: function(e){
+            
+            if(e.keyCode != this.options.validator){
+                switch(e.keyCode){
+                    case 9:
+                    case 13:
+                    case 27:
+                    case 38:
+                    case 40:
+                        break;
 
-            switch(e.keyCode)
-            {
-                case 9:
-                case 13:
-                case 27:
-                case 38:
-                case 40:
-                    break;
-
-                case 8:
-                    if(this.searchInput.val()){
+                    case 8:
+                        if(this.searchInput.val()){
+                            this.search();
+                        } else {
+                            this.closeDropdown();
+                        }
+                        break;
+                    default:
                         this.search();
-                    } else {
-                        this.closeDropdown();
-                    }
-                    break;
-                default:
-                    this.search();
-                    break;
+                        break;
+                }
             }
 
         },
 
         addCustomToken: function(){
 
-            if(this.options.newElements && this.searchInput.val())
-            {
-                if($('li[data="' + this.searchInput.val() + '"]', this.tokens).length)
-                {
+            if(this.options.newElements && this.searchInput.val()){
+                if($('li[data="' + this.searchInput.val() + '"]', this.tokens).length){
                     this.cleanInput();
                     return false;
                 }
@@ -428,9 +440,8 @@
                     .html(this.searchInput.val());
 
                 this.addToken(li);
-            }
-            else
-            {
+                this.closeDropdown();
+            } else {
                 this.cleanInput();
             }
 
@@ -439,8 +450,7 @@
         goUp: function(){
 
             if($('li.Highlight', this.dropdown).length > 0){
-                if(!$('li.Highlight').is('li:first-child'))
-                {
+                if(!$('li.Highlight').is('li:first-child')){
                     $('li.Highlight').removeClass('Highlight').prev().addClass('Highlight');
                 }
             } else {
@@ -484,9 +494,7 @@
                 } else {
                     this.closeDropdown();
                 }
-            }
-            else
-            {
+            } else {
                 $.getJSON(this.options.datas, this.options.searchParam + "=" + this.searchInput.val(), function(data){
                     if(data){
                         $this.cleanDropdown();
@@ -509,8 +517,7 @@
 
     $.fn.tokenize = function(options){
 
-        if(options == undefined)
-        {
+        if(options == undefined){
             options = {};
         }
 
