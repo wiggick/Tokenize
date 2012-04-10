@@ -21,8 +21,7 @@
 
     $.tokenize = function(opts){
 
-        if(opts == undefined)
-        {
+        if(opts == undefined){
             opts = $.fn.tokenize.defaults;
         }
 
