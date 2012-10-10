@@ -43,6 +43,8 @@
             var $this = this;
             this.mouseOnContainer = false;
             this.tokenDelete = false;
+            
+            this.el.css({ margin : 0, padding: 0, border: 0});
 
             // Container div
             this.container = $('<div />')
@@ -97,6 +99,10 @@
                 if(!$this.mouseOnContainer){
                     $this.closeDropdown();
                 }
+            });
+
+            this.searchInput.on('paste', function(e){
+                setTimeout(function(){ $this.updateInput(); }, 10);
             });
 
             this.searchInput.bind('keydown', function(e){
