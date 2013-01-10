@@ -1,9 +1,8 @@
 div.TokenizeMeasure,
-div.Tokenize ul.Dropdown li,
-div.Tokenize ul.Tokens li.Token,
-div.Tokenize ul.Tokens li.SearchField input
+div.Tokenize ul li span,
+div.Tokenize ul.TokensContainer li.TokenSearch input
 {
-    font-family: Arial, Helvetica, Sans-Serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
 }
 
@@ -16,48 +15,34 @@ div.Tokenize
 
 div.Tokenize ul
 {
-    margin: 0;
-    padding: 0;
     list-style: none;
-    overflow-y: auto;
+    padding: 0;
+    margin: 0;
 }
 
-div.Tokenize ul.Tokens
-{
-    border: 1px solid #bbb;
-    background-color: #fff;
-
-    height: 22px;
-    cursor: text;
-
-    -webkit-box-shadow: inset 0 1px 0 0 #e5e5e5;
-    -moz-box-shadow: inset 0 1px 0 0 #e5e5e5;
-    -o-box-shadow: inset 0 1px 0 0 #e5e5e5;
-    box-shadow: inset 0 1px 0 0 #e5e5e5;
-}
-
-div.Tokenize ul.Tokens li.Token,
-div.Tokenize ul.Tokens li.SearchField
+div.Tokenize ul li
 {
     white-space: nowrap;
-    float: left;
 }
 
-div.Tokenize ul.Tokens li.Token
+div.Tokenize ul.TokensContainer
 {
-    margin: 2px 0 0 2px;
+    cursor: text;
+    padding: 0 5px 0 0;
+    height: 100px;
+    overflow-y: auto;
+    background-color: white;
+}
+
+div.Tokenize ul.TokensContainer li.Token
+{
     border: 1px solid #ccd5e3;
     background-color: #eff2f7;
-    line-height: 16px;
-    height: 16px;
     padding: 0 5px;
-
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
+    line-height: 18px;
 }
 
-div.Tokenize ul.Tokens li.Token.PendingDelete
+div.Tokenize ul.TokensContainer li.Token.PendingDelete
 {
     opacity : 0.5;
     -moz-opacity : 0.5;
@@ -65,62 +50,64 @@ div.Tokenize ul.Tokens li.Token.PendingDelete
     filter : alpha(opacity=50);
 }
 
-div.Tokenize ul.Tokens li.Token a.Close
+div.Tokenize ul.TokensContainer li.Token,
+div.Tokenize ul.TokensContainer li.TokenSearch
+{
+    margin: 5px 0 0 5px;
+    height: 18px;
+    float: left;
+}
+
+div.Tokenize ul.TokensContainer li.TokenSearch input
+{
+    margin: 0;
+    padding: 1px 0;
+    background-color: white;
+    line-height: 18px;
+    border: none;
+    outline: none;
+}
+
+div.Tokenize ul.TokensContainer,
+div.Tokenize ul.Dropdown
+{
+    border: 1px solid #ccc;
+}
+
+div.Tokenize ul.TokensContainer li.Token a.Close
 {
     font-size: 16px;
+    line-height: 18px;
     float: right;
-    margin-top: 1px;
-    margin-left: 5px;
+    margin: 1px 0 0 5px;
+    padding: 0;
     cursor: pointer;
     color: #a6b4ce;
 }
 
-div.Tokenize ul.Tokens li.Token a.Close:hover
-{
-    color: #000000;
-}
-
-div.Tokenize ul.Tokens li.SearchField
-{
-    margin: 0;
-    padding: 0;
-}
-
-div.Tokenize ul.Tokens li.SearchField input
-{
-    border: 0;
-    margin: 1px 0 0 0;
-    line-height: 14px;
-    padding: 3px;
-    outline: none;
-}
-
 div.Tokenize ul.Dropdown
 {
+    margin: -1px 0 0 0;
     position: absolute;
-    border: 1px solid #bbb;
-    background-color: #fff;
+    background-color: white;
     overflow-y: auto;
-    display: none;
 
     -webkit-box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
     -moz-box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
     -o-box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
     box-shadow: 0 4px 5px rgba(0, 0, 0, .15);
-
-    z-index: 999;
+    z-index: 20;
 }
 
 div.Tokenize ul.Dropdown li
 {
     padding: 5px 10px;
-    white-space: nowrap;
     overflow: hidden;
     cursor: pointer;
 }
 
-div.Tokenize ul.Dropdown li.Highlight
+div.Tokenize ul.Dropdown li.Hover
 {
     background-color: #00aeef;
-    color: #fff;
+    color: white;
 }
