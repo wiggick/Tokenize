@@ -114,7 +114,7 @@
             this.resizeSearchInput();
 
             $('option:selected', this.select).each(function(){
-                $this.tokenAdd($(this).attr('value'), $(this).html());
+                $this.tokenAdd($(this).attr('value'), $(this).html(), true);
             });
 
         },
@@ -376,7 +376,7 @@
         },
 
 
-        tokenAdd: function(value, text){
+        tokenAdd: function(value, text, first){
 
             if(value == undefined || value == ''){
                 return false;
@@ -384,6 +384,10 @@
 
             if(text == undefined || text == ''){
                 text = value;
+            }
+
+            if(first == undefined){
+                first = false;
             }
 
             var $this = this;
@@ -419,7 +423,10 @@
                 .prepend(close_btn)
                 .insertBefore(this.searchToken);
 
-            this.options.onAddToken(value, text);
+            if(!first){
+                this.options.onAddToken(value, text);
+            }
+
             this.resetSearchInput();
             this.dropdownHide();
 
