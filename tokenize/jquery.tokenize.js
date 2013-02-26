@@ -54,7 +54,7 @@
             this.container = $('<div />')
                 .attr('class', this.select.attr('class'))
                 .addClass('Tokenize')
-                .width(this.select.width());
+                .width(this.select.outerWidth());
 
             this.dropdown = $('<ul />')
                 .addClass('Dropdown')
