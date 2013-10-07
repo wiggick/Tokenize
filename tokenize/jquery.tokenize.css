@@ -87,6 +87,13 @@ div.Tokenize ul.TokensContainer li.Token a.Close
 
 div.Tokenize ul.Dropdown
 {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+
+    display: none;
+    width: 100%;
     padding: 5px 0;
     margin: -1px 0 0 0;
     position: absolute;

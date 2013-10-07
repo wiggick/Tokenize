@@ -53,13 +53,10 @@
 
             this.container = $('<div />')
                 .attr('class', this.select.attr('class'))
-                .addClass('Tokenize')
-                .width(this.select.width());
+                .addClass('Tokenize');
 
             this.dropdown = $('<ul />')
-                .addClass('Dropdown')
-                .width(this.select.width() - 2)
-                .hide();
+                .addClass('Dropdown');
 
             this.tokensContainer = $('<ul />')
                 .addClass('TokensContainer');
