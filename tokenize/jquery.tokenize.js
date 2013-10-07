@@ -55,6 +55,10 @@
                 .attr('class', this.select.attr('class'))
                 .addClass('Tokenize');
 
+            if(this.options.maxElements == 1){
+                this.container.addClass('OnlyOne');
+            }
+
             this.dropdown = $('<ul />')
                 .addClass('Dropdown');
 
@@ -306,6 +310,10 @@
             var $this = this;
             var count = 1;
 
+            if(this.options.maxElements > 0 && $('li.Token', 'ul.TokensContainer').length >= this.options.maxElements){
+                return false;
+            }
+
             if(this.options.datas == 'select'){
 
                 var found = false, regexp = new RegExp(this.searchInput.val().replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), 'i');
@@ -387,6 +395,11 @@
                 first = false;
             }
 
+            if(this.options.maxElements > 0 && $('li.Token', 'ul.TokensContainer').length >= this.options.maxElements){
+                this.resetSearchInput();
+                return false;
+            }
+
             var $this = this;
             var close_btn = $('<a />')
                 .addClass('Close')
@@ -406,6 +419,7 @@
 
                 this.select.append(option);
             } else {
+                this.resetSearchInput();
                 return false;
             }
 
@@ -475,6 +489,7 @@
         validator: KEYS.COMMA,
         newElements: true,
         nbDropdownElements: 10,
+        maxElements: 0,
 
         onAddToken: function(value, text){},
         onRemoveToken: function(value){}
