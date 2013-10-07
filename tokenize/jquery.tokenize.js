@@ -109,6 +109,11 @@
             $(document).bind('click', function(){
                 if(!$this.mouseOnContainer){
                     $this.dropdownHide();
+                    if($this.options.maxElements == 1){
+                        if($this.searchInput.val()){
+                            $this.tokenAdd($this.searchInput.val(), '');
+                        }
+                    }
                 }
             });
 
