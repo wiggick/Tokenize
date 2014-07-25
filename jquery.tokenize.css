@@ -76,6 +76,7 @@ div.Tokenize ul.Dropdown
 
 div.Tokenize ul.TokensContainer li.Token a.Close
 {
+    font-family: Arial, Helvetica, sans-serif !important;
     font-size: 16px;
     line-height: 18px;
     float: right;
@@ -83,6 +84,12 @@ div.Tokenize ul.TokensContainer li.Token a.Close
     padding: 0;
     cursor: pointer;
     color: #a6b4ce;
+}
+
+div.Tokenize ul.TokensContainer li.Token a.Close:hover
+{
+    background: transparent;
+    text-decoration: none;
 }
 
 div.Tokenize ul.Dropdown
