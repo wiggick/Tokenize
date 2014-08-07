@@ -351,30 +351,23 @@
                     dataType: this.options.dataType,
                     success: function(data){
                         if(data){
-                            var found = false;
-                            $.each(data, function(){
-                                found = true;
-                                return true;
-                            });
-                            if(found){
-                                $this.dropdownReset();
-                                $.each(data, function(key, val){
-                                    if(count <= $this.options.nbDropdownElements){
-                                        var html = undefined;
-                                        if(val[$this.options.htmlField]){
-                                            html = val[$this.options.htmlField];
-                                        }
-                                        $this.dropdownAddItem(val[$this.options.valueField], val[$this.options.textField], html);
-                                        count++;
-                                    } else {
-                                        return false;
+                            $this.dropdownReset();
+                            $.each(data, function(key, val){
+                                if(count <= $this.options.nbDropdownElements){
+                                    var html = undefined;
+                                    if(val[$this.options.htmlField]){
+                                        html = val[$this.options.htmlField];
                                     }
-                                });
-                                if($('li', $this.dropdown).length){
-                                    $('li:first', $this.dropdown).addClass('Hover');
-                                    $this.dropdownShow();
-                                    return true;
+                                    $this.dropdownAddItem(val[$this.options.valueField], val[$this.options.textField], html);
+                                    count++;
+                                } else {
+                                    return false;
                                 }
+                            });
+                            if($('li', $this.dropdown).length){
+                                $('li:first', $this.dropdown).addClass('Hover');
+                                $this.dropdownShow();
+                                return true;
                             }
                         }
                         $this.dropdownHide();
