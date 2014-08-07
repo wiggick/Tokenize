@@ -48,7 +48,6 @@
         init: function(el){
 
             var $this = this;
-            this.mouseOnContainer = false;
             this.select = el.attr('multiple', 'multiple').css({margin: 0, padding: 0, border: 0}).hide();
 
             this.container = $('<div />')
@@ -78,41 +77,40 @@
                 .append(this.dropdown)
                 .insertAfter(this.select);
 
-            this.tokensContainer.bind('click', function(){
+            this.tokensContainer.on('click', function(e){
+                e.stopImmediatePropagation();
                 $this.searchInput.get(0).focus();
                 if($this.dropdown.is(':hidden') && $this.searchInput.val() != ''){
                     $this.search();
                 }
             });
 
-            this.searchInput.bind('keydown', function(e){
+            this.searchInput.on('keydown', function(e){
                 $this.resizeSearchInput();
                 $this.keydown(e);
             });
 
-            this.searchInput.bind('keyup', function(e){
+            this.searchInput.on('keyup', function(e){
                 $this.keyup(e);
             });
 
-            this.searchInput.on('paste', function(e){
+            this.searchInput.on('paste', function(){
                 setTimeout(function(){ $this.resizeSearchInput(); }, 10);
+                setTimeout(function(){
+                    var paste_elements = $this.searchInput.val().split(',');
+                    if(paste_elements.length > 1){
+                        $.each(paste_elements, function(_, value){
+                            $this.tokenAdd(value.trim(), '');
+                        });
+                    }
+                }, 20);
             });
 
-            this.container.bind('mouseenter', function(){
-                $this.mouseOnContainer = true;
-            });
-
-            this.container.bind('mouseleave', function(){
-                $this.mouseOnContainer = false;
-            });
-
-            $(document).bind('click', function(){
-                if(!$this.mouseOnContainer){
-                    $this.dropdownHide();
-                    if($this.options.maxElements == 1){
-                        if($this.searchInput.val()){
-                            $this.tokenAdd($this.searchInput.val(), '');
-                        }
+            $(document).on('click', function(){
+                $this.dropdownHide();
+                if($this.options.maxElements == 1){
+                    if($this.searchInput.val()){
+                        $this.tokenAdd($this.searchInput.val(), '');
                     }
                 }
             });
@@ -170,11 +168,12 @@
                 .attr('data-value', value)
                 .attr('data-text', text)
                 .html(html)
-                .bind('click', function(){
+                .on('click', function(e){
+                    e.stopImmediatePropagation();
                     $this.tokenAdd($(this).attr('data-value'), $(this).attr('data-text'));
-                }).bind('mouseover', function(){
+                }).on('mouseover', function(){
                     $(this).addClass('Hover');
-                }).bind('mouseout', function(){
+                }).on('mouseout', function(){
                     $('li', $this.dropdown).removeClass('Hover');
                 });
 
@@ -225,7 +224,7 @@
 
         keydown: function(e){
 
-            if(e.keyCode == this.options.validator){
+            if(e.keyCode == KEYS.COMMA){
                 e.preventDefault();
                 this.tokenAdd(this.searchInput.val(), '');
             } else {
@@ -405,7 +404,8 @@
             var close_btn = $('<a />')
                 .addClass('Close')
                 .html("×")
-                .bind('click', function(){
+                .on('click', function(e){
+                    e.stopImmediatePropagation();
                     $this.tokenRemove(value);
                 });
 
@@ -487,7 +487,6 @@
         datas: 'select',
         searchParam: 'search',
         searchMaxLength: 30,
-        validator: KEYS.COMMA,
         newElements: true,
         nbDropdownElements: 10,
         maxElements: 0,
