@@ -370,9 +370,11 @@
                                         return false;
                                     }
                                 });
-                                $('li:first', $this.dropdown).addClass('Hover');
-                                $this.dropdownShow();
-                                return true;
+                                if($('li', $this.dropdown).length){
+                                    $('li:first', $this.dropdown).addClass('Hover');
+                                    $this.dropdownShow();
+                                    return true;
+                                }
                             }
                         }
                         $this.dropdownHide();
