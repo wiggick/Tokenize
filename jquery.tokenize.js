@@ -345,40 +345,41 @@
 
             } else {
 
-                $.getJSON(this.options.datas, this.options.searchParam + "=" + this.searchInput.val(), function(data){
-
-                    if(data){
-                        var found = false;
-                        $.each(data, function(key, val){
-                            found = true;
-                            return true;
-                        });
-
-                        if(found){
-                            $this.dropdownReset();
-
-                            $.each(data, function(key, val){
-                                if(count <= $this.options.nbDropdownElements){
-                                    var html = undefined;
-                                    if(val.html){
-                                        html = val.html;
-                                    }
-                                    $this.dropdownAddItem(val.value, val.text, html);
-                                    count++;
-                                } else {
-                                    return false;
-                                }
+                $.ajax({
+                    url: this.options.datas,
+                    data: this.options.searchParam + "=" + this.searchInput.val(),
+                    dataType: this.options.dataType,
+                    success: function(data){
+                        if(data){
+                            var found = false;
+                            $.each(data, function(){
+                                found = true;
+                                return true;
                             });
-
-                            $('li:first', $this.dropdown).addClass('Hover');
-                            $this.dropdownShow();
-
-                            return true;
+                            if(found){
+                                $this.dropdownReset();
+                                $.each(data, function(key, val){
+                                    if(count <= $this.options.nbDropdownElements){
+                                        var html = undefined;
+                                        if(val[$this.options.htmlField]){
+                                            html = val[$this.options.htmlField];
+                                        }
+                                        $this.dropdownAddItem(val[$this.options.valueField], val[$this.options.textField], html);
+                                        count++;
+                                    } else {
+                                        return false;
+                                    }
+                                });
+                                $('li:first', $this.dropdown).addClass('Hover');
+                                $this.dropdownShow();
+                                return true;
+                            }
                         }
+                        $this.dropdownHide();
+                    },
+                    error: function(XHR, textStatus) {
+                        console.log("Error : " + textStatus);
                     }
-
-                    $this.dropdownHide();
-
                 });
 
             }
@@ -495,6 +496,10 @@
         newElements: true,
         nbDropdownElements: 10,
         maxElements: 0,
+        dataType: 'json',
+        valueField: 'value',
+        textField: 'text',
+        htmlField: 'html',
 
         onAddToken: function(value, text){},
         onRemoveToken: function(value){}
