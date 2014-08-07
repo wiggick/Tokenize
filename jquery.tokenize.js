@@ -478,7 +478,9 @@
         }
 
         this.each(function(){
-            new $.tokenize($.extend({}, $.fn.tokenize.defaults, options)).init($(this));
+            var obj = new $.tokenize($.extend({}, $.fn.tokenize.defaults, options));
+            obj.init($(this));
+            $(this).data(DATA, obj);
         });
 
         return this;
