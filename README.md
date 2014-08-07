@@ -14,6 +14,13 @@ Documentation and Demo : [http://projects.zellerda.com/tokenize](http://projects
 Changelog
 ---------
 
+jQuery Tokenize 2.1 - 7 August 2014
+ - Fix loading of multiple dom elements
+ - Add JSONP support
+ - Add options to personalize fields
+ - Add loop when move in drop down
+ - Remove validator option
+
 jQuery Tokenize 2.0 - 7 October 2013
  - Add callbacks
  - Add maxElements option
