@@ -237,7 +237,6 @@
                             } else {
                                 $('li.Token:last', this.tokensContainer).addClass('PendingDelete');
                             }
-
                             this.dropdownHide();
                         }
                         break;
@@ -472,11 +471,9 @@
             options = {};
         }
 
-        var opt = $.extend({}, $.fn.tokenize.defaults, options);
-        var obj = new $.tokenize(opt);
-        obj.init(this);
-
-        $(this).data(DATA, obj);
+        this.each(function(){
+            new $.tokenize($.extend({}, $.fn.tokenize.defaults, options)).init($(this));
+        });
 
         return this;
 
