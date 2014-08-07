@@ -134,6 +134,9 @@
             if($('li.Hover', this.dropdown).length > 0){
                 if(!$('li.Hover', this.dropdown).is('li:first-child')){
                     $('li.Hover', this.dropdown).removeClass('Hover').prev().addClass('Hover');
+                } else {
+                    $('li.Hover', this.dropdown).removeClass('Hover');
+                    $('li:last-child', this.dropdown).addClass('Hover');
                 }
             } else {
                 $('li:first', this.dropdown).addClass('Hover');
@@ -146,6 +149,9 @@
             if($('li.Hover', this.dropdown).length > 0){
                 if(!$('li.Hover', this.dropdown).is('li:last-child')){
                     $('li.Hover', this.dropdown).removeClass('Hover').next().addClass('Hover');
+                } else {
+                    $('li.Hover', this.dropdown).removeClass('Hover');
+                    $('li:first-child', this.dropdown).addClass('Hover');
                 }
             } else {
                 $('li:first', this.dropdown).addClass('Hover');
