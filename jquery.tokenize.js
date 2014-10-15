@@ -319,7 +319,7 @@
             var $this = this;
             var count = 1;
 
-            if(this.options.maxElements > 0 && $('li.Token', 'ul.TokensContainer').length >= this.options.maxElements){
+            if(this.options.maxElements > 0 && $('li.Token', this.tokensContainer).length >= this.options.maxElements){
                 return false;
             }
 
@@ -400,7 +400,7 @@
                 first = false;
             }
 
-            if(this.options.maxElements > 0 && $('li.Token', 'ul.TokensContainer').length >= this.options.maxElements){
+            if(this.options.maxElements > 0 && $('li.Token', this.tokensContainer).length >= this.options.maxElements){
                 this.resetSearchInput();
                 return false;
             }
