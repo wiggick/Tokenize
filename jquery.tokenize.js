@@ -408,7 +408,7 @@
             var $this = this;
             var close_btn = $('<a />')
                 .addClass('Close')
-                .html("×")
+                .html("&#215;")
                 .on('click', function(e){
                     e.stopImmediatePropagation();
                     $this.tokenRemove(value);
