@@ -16,7 +16,7 @@
  *
  * @author      David Zeller <me@zellerda.com>
  * @license     http://www.opensource.org/licenses/BSD-3-Clause New BSD license
- * @version     2.2.1
+ * @version     2.3
  */
 (function($, tokenize){
 
