@@ -392,7 +392,7 @@
                 return false;
             }
 
-            if(text == undefined || text == ''){
+            if(text == undefined || text == ''){
                 text = value;
             }
 
