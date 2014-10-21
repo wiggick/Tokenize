@@ -14,6 +14,10 @@ Documentation and Demo : [http://projects.zellerda.com/tokenize](http://projects
 Changelog
 ---------
 
+jQuery Tokenize 2.2 - 21 October 2014
+ - [Issue #1] Fix maxElements configuration was enforced across all objects in document
+ - [Issue #2] Fix the display of "x" for non UTF-8 websites
+
 jQuery Tokenize 2.1 - 7 August 2014
  - Fix loading of multiple dom elements
  - Add JSONP support
