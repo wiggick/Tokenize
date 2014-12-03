@@ -69,8 +69,11 @@
                 .appendTo(this.tokensContainer);
 
             this.searchInput = $('<input />')
-                .attr('maxlength', this.options.searchMaxLength)
                 .appendTo(this.searchToken);
+
+            if(this.options.searchMaxLength > 0){
+                this.searchInput.attr('maxlength', this.options.searchMaxLength)
+            }
 
             this.container
                 .append(this.tokensContainer)
@@ -491,7 +494,7 @@
 
         datas: 'select',
         searchParam: 'search',
-        searchMaxLength: 30,
+        searchMaxLength: 0,
         newElements: true,
         nbDropdownElements: 10,
         maxElements: 0,
