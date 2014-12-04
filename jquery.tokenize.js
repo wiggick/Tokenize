@@ -490,6 +490,17 @@
             this.resizeSearchInput();
             this.dropdownHide();
 
+        },
+
+        clear: function(){
+
+            var $this = this;
+            $('li.Token', this.tokensContainer).each(function(){
+                $this.tokenRemove($(this).attr('data-value'));
+            });
+
+            this.options.onClear();
+
         }
 
     });
@@ -526,7 +537,8 @@
         htmlField: 'html',
 
         onAddToken: function(value, text){},
-        onRemoveToken: function(value){}
+        onRemoveToken: function(value){},
+        onClear: function(){}
 
     };
 
