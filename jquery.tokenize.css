@@ -62,7 +62,7 @@ div.Tokenize ul.TokensContainer li.TokenSearch input
 {
     margin: 0;
     padding: 1px 0;
-    background-color: white;
+    background-color: transparent;
     line-height: 18px;
     border: none;
     outline: none;
