@@ -68,6 +68,14 @@ div.Tokenize ul.TokensContainer li.TokenSearch input
     outline: none;
 }
 
+div.Tokenize ul.TokensContainer li.Placeholder {
+    color: #ddd;
+    position: absolute;
+    line-height: 20px;
+    padding: 5px 0 0 5px;
+    display: none;
+}
+
 div.Tokenize ul.TokensContainer,
 div.Tokenize ul.Dropdown
 {

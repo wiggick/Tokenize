@@ -83,7 +83,14 @@
             this.tokensContainer.on('click', function(e){
                 e.stopImmediatePropagation();
                 $this.searchInput.get(0).focus();
+                $this.updatePlaceholder();
                 if($this.dropdown.is(':hidden') && $this.searchInput.val() != ''){
+                    $this.search();
+                }
+            });
+
+            this.searchInput.on('focus click', function(){
+                if($this.options.displayDropdownOnFocus && $this.options.datas == 'select'){
                     $this.search();
                 }
             });
@@ -123,6 +130,25 @@
             $('option:selected', this.select).each(function(){
                 $this.tokenAdd($(this).attr('value'), $(this).html(), true);
             });
+
+            this.updatePlaceholder();
+
+        },
+
+        updatePlaceholder: function(){
+
+            if(this.options.placeholder != false){
+                if(this.placeholder == undefined){
+                    this.placeholder = $('<li />').addClass('Placeholder').html(this.options.placeholder);
+                    this.placeholder.insertBefore($('li:first-child', this.tokensContainer));
+                }
+
+                if(this.searchInput.val().length == 0 && $('li.Token', this.tokensContainer).length == 0){
+                    this.placeholder.show();
+                } else {
+                    this.placeholder.hide();
+                }
+            }
 
         },
 
@@ -206,15 +232,8 @@
 
         resizeSearchInput: function(){
 
-            var measure = $('<div />')
-                .css({ position: 'absolute', visibility: 'hidden' })
-                .addClass('TokenizeMeasure')
-                .html(this.searchInput.val());
-
-            $('body').append(measure);
-
-            this.searchInput.width(measure.width() + 25);
-            measure.remove();
+            this.searchInput.attr('size', (this.searchInput.val().length > 1 ? this.searchInput.val().length : 5));
+            this.updatePlaceholder();
 
         },
 
@@ -291,6 +310,7 @@
 
         keyup: function(e){
 
+            this.updatePlaceholder();
             if(e.keyCode != this.options.validator){
                 switch(e.keyCode){
                     case KEYS.TAB:
@@ -493,10 +513,12 @@
     $.fn.tokenize.defaults = {
 
         datas: 'select',
+        placeholder: false,
         searchParam: 'search',
         searchMaxLength: 0,
         newElements: true,
         nbDropdownElements: 10,
+        displayDropdownOnFocus: false,
         maxElements: 0,
         dataType: 'json',
         valueField: 'value',
