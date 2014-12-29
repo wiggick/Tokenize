@@ -439,7 +439,7 @@
 
             if($('option[value="' + value + '"]', this.select).length){
                 $('option[value="' + value + '"]', this.select).attr('selected', 'selected');
-            } else if(this.options.newElements) {
+            } else if(this.options.newElements || (!this.options.newElements && $('li[data-value="' + value + '"]', this.dropdown).length > 0)) {
                 var option = $('<option />')
                     .attr('selected', 'selected')
                     .attr('value', value)
