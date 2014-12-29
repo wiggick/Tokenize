@@ -14,6 +14,13 @@ Documentation and Demo : [http://projects.zellerda.com/tokenize](http://projects
 Changelog
 ---------
 
+jQuery Tokenize 2.2.2 - 29 December 2014
+ - [Issue #14] Fix adding tokens from Ajax when newElements is false
+ - [Issue #13] Add clear method
+ - Change search input background color to transparent
+ - Add placeholder and displayDropdownOnFocus options
+ - Remove maxlength option to the input if searchMaxLength is 0
+ 
 jQuery Tokenize 2.2.1 - 21 October 2014
  - [Issue #3] Fix whitespace in code
 
