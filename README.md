@@ -14,6 +14,9 @@ Documentation and Demo : [http://projects.zellerda.com/tokenize](http://projects
 Changelog
 ---------
 
+jQuery Tokenize 2.3 - 09 February 2015
+ - [Issue #15] Add enable and disable method for api
+ 
 jQuery Tokenize 2.2.2 - 29 December 2014
  - [Issue #14] Fix adding tokens from Ajax when newElements is false
  - [Issue #13] Add clear method
