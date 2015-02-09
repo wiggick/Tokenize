@@ -16,7 +16,7 @@
  *
  * @author      David Zeller <me@zellerda.com>
  * @license     http://www.opensource.org/licenses/BSD-3-Clause New BSD license
- * @version     2.2.2
+ * @version     2.3
  */
 (function($, tokenize){
 
@@ -73,6 +73,10 @@
 
             if(this.options.searchMaxLength > 0){
                 this.searchInput.attr('maxlength', this.options.searchMaxLength)
+            }
+
+            if(this.select.prop('disabled')){
+                this.disable();
             }
 
             this.container
@@ -408,7 +412,6 @@
 
         },
 
-
         tokenAdd: function(value, text, first){
 
             if(value == undefined || value == ''){
@@ -501,6 +504,18 @@
 
             this.options.onClear();
 
+        },
+
+        disable: function(){
+            this.select.prop('disabled', true);
+            this.searchInput.prop('disabled', true);
+            this.container.addClass('Disabled');
+        },
+
+        enable: function(){
+            this.select.prop('disabled', false);
+            this.searchInput.prop('disabled', false);
+            this.container.removeClass('Disabled');
         }
 
     });
