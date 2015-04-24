@@ -467,7 +467,7 @@
                 .insertBefore(this.searchToken);
 
             if(!first){
-                this.options.onAddToken(value, text);
+                this.options.onAddToken(this, value, text);
             }
 
             this.resetSearchInput();
@@ -489,7 +489,7 @@
 
             $('li.Token[data-value="' + value + '"]', this.tokensContainer).remove();
 
-            this.options.onRemoveToken(value);
+            this.options.onRemoveToken(this, value);
             this.resizeSearchInput();
             this.dropdownHide();
 
@@ -499,10 +499,10 @@
 
             var $this = this;
             $('li.Token', this.tokensContainer).each(function(){
-                $this.tokenRemove($(this).attr('data-value'));
+                $this.tokenRemove($(this), $(this).attr('data-value'));
             });
 
-            this.options.onClear();
+            this.options.onClear(this);
 
         },
 
@@ -551,9 +551,9 @@
         textField: 'text',
         htmlField: 'html',
 
-        onAddToken: function(value, text){},
-        onRemoveToken: function(value){},
-        onClear: function(){}
+        onAddToken: function(e, value, text){},
+        onRemoveToken: function(e, value){},
+        onClear: function(e){}
 
     };
 
