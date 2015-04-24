@@ -376,40 +376,58 @@
 
             } else {
 
-                $.ajax({
-                    url: this.options.datas,
-                    data: this.options.searchParam + "=" + this.searchInput.val(),
-                    dataType: this.options.dataType,
-                    success: function(data){
-                        if(data){
-                            $this.dropdownReset();
-                            $.each(data, function(key, val){
-                                if(count <= $this.options.nbDropdownElements){
-                                    var html = undefined;
-                                    if(val[$this.options.htmlField]){
-                                        html = val[$this.options.htmlField];
+                this.debounce(function(){
+                    $.ajax({
+                        url: $this.options.datas,
+                        data: $this.options.searchParam + "=" + $this.searchInput.val(),
+                        dataType: $this.options.dataType,
+                        success: function(data){
+                            if(data){
+                                $this.dropdownReset();
+                                $.each(data, function(key, val){
+                                    if(count <= $this.options.nbDropdownElements){
+                                        var html = undefined;
+                                        if(val[$this.options.htmlField]){
+                                            html = val[$this.options.htmlField];
+                                        }
+                                        $this.dropdownAddItem(val[$this.options.valueField], val[$this.options.textField], html);
+                                        count++;
+                                    } else {
+                                        return false;
                                     }
-                                    $this.dropdownAddItem(val[$this.options.valueField], val[$this.options.textField], html);
-                                    count++;
-                                } else {
-                                    return false;
+                                });
+                                if($('li', $this.dropdown).length){
+                                    $('li:first', $this.dropdown).addClass('Hover');
+                                    $this.dropdownShow();
+                                    return true;
                                 }
-                            });
-                            if($('li', $this.dropdown).length){
-                                $('li:first', $this.dropdown).addClass('Hover');
-                                $this.dropdownShow();
-                                return true;
                             }
+                            $this.dropdownHide();
+                        },
+                        error: function(XHR, textStatus) {
+                            console.log("Error : " + textStatus);
                         }
-                        $this.dropdownHide();
-                    },
-                    error: function(XHR, textStatus) {
-                        console.log("Error : " + textStatus);
-                    }
-                });
+                    });
+                }, this.options.debounce);
 
             }
 
+        },
+
+        debounce: function(func, wait){
+
+            var $this = this;
+            var timeout;
+            var later = function(){
+                clearTimeout(timeout);
+                func.call($this);
+            };
+
+            if(timeout){
+                clearTimeout(timeout);
+            }
+
+            timeout = setTimeout(later, wait);
         },
 
         tokenAdd: function(value, text, first){
@@ -542,6 +560,7 @@
         placeholder: false,
         searchParam: 'search',
         searchMaxLength: 0,
+        debounce: 0,
         newElements: true,
         nbDropdownElements: 10,
         displayDropdownOnFocus: false,
