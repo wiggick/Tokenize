@@ -485,7 +485,7 @@
                 .insertBefore(this.searchToken);
 
             if(!first){
-                this.options.onAddToken(this, value, text);
+                this.options.onAddToken(value, text, this);
             }
 
             this.resetSearchInput();
@@ -507,7 +507,7 @@
 
             $('li.Token[data-value="' + value + '"]', this.tokensContainer).remove();
 
-            this.options.onRemoveToken(this, value);
+            this.options.onRemoveToken(value, this);
             this.resizeSearchInput();
             this.dropdownHide();
 
@@ -570,8 +570,8 @@
         textField: 'text',
         htmlField: 'html',
 
-        onAddToken: function(e, value, text){},
-        onRemoveToken: function(e, value){},
+        onAddToken: function(value, text, e){},
+        onRemoveToken: function(value, e){},
         onClear: function(e){}
 
     };
