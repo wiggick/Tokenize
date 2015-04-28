@@ -517,7 +517,7 @@
 
             var $this = this;
             $('li.Token', this.tokensContainer).each(function(){
-                $this.tokenRemove($(this), $(this).attr('data-value'));
+                $this.tokenRemove($(this).attr('data-value'));
             });
 
             this.options.onClear(this);
