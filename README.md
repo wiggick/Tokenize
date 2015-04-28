@@ -14,6 +14,9 @@ Documentation and Demo : [http://projects.zellerda.com/tokenize](http://projects
 Changelog
 ---------
 
+jQuery Tokenize 2.3.2 - 28 April 2015
+ - Fix clear method
+
 jQuery Tokenize 2.3.1 - 24 April 2015
  - [Issue #22] Add debounce options for Ajax queries
  - [Issue #21] Add current tokenize object for all callback function with e parameter
