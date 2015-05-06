@@ -8,6 +8,8 @@ jQuery Tokenize is a plugin which allows your users to select multiple items fro
  - Supports any backend which can generate JSON, including PHP, Rails, Django, ASP.net
  - Callbacks when items are added or removed from the list
  - Select, delete and navigate items using the mouse or keyboard
+ - Sortable items
+ - Support jQuery 1.11+ and jQuery 2+
 
 Documentation and Demo : [http://projects.zellerda.com/tokenize](http://projects.zellerda.com/tokenize)
 
