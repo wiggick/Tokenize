@@ -79,6 +79,29 @@
                 this.disable();
             }
 
+            if(this.options.sortable){
+                if (typeof $.ui != 'undefined'){
+                    this.tokensContainer.sortable({
+                        items: 'li.Token',
+                        cursor: 'move',
+                        placeholder: 'Token MovingShadow',
+                        forcePlaceholderSize: true,
+                        update: function(){
+                            $this.updateOrder();
+                        },
+                        start: function(){
+                            $this.searchToken.hide();
+                        },
+                        stop: function(){
+                            $this.searchToken.show();
+                        }
+                    }).disableSelection();
+                } else {
+                    this.options.sortable = false;
+                    console.log('jQuery UI is not loaded, sortable option has been disabled');
+                }
+            }
+
             this.container
                 .append(this.tokensContainer)
                 .append(this.dropdown)
@@ -136,6 +159,22 @@
             });
 
             this.updatePlaceholder();
+
+        },
+
+        updateOrder: function(){
+
+            var previous, current, $this = this;
+            $.each(this.tokensContainer.sortable('toArray', {attribute: 'data-value'}), function(k, v){
+                current = $('option[value="' + v + '"]', $this.select);
+                if(previous == undefined){
+                    current.prependTo($this.select);
+                } else {
+                    previous.after(current);
+                }
+                previous = current;
+            });
+            this.options.onReorder(this);
 
         },
 
@@ -217,6 +256,7 @@
                 });
 
             this.dropdown.append(item);
+            this.options.onDropdownAddItem(value, text, html, this);
             return true;
 
         },
@@ -528,12 +568,18 @@
             this.select.prop('disabled', true);
             this.searchInput.prop('disabled', true);
             this.container.addClass('Disabled');
+            if(this.options.sortable){
+                this.tokensContainer.sortable('disable')
+            }
         },
 
         enable: function(){
             this.select.prop('disabled', false);
             this.searchInput.prop('disabled', false);
             this.container.removeClass('Disabled');
+            if(this.options.sortable){
+                this.tokensContainer.sortable('enable')
+            }
         }
 
     });
@@ -565,6 +611,7 @@
         nbDropdownElements: 10,
         displayDropdownOnFocus: false,
         maxElements: 0,
+        sortable: false,
         dataType: 'json',
         valueField: 'value',
         textField: 'text',
@@ -572,7 +619,9 @@
 
         onAddToken: function(value, text, e){},
         onRemoveToken: function(value, e){},
-        onClear: function(e){}
+        onClear: function(e){},
+        onReorder: function(e){},
+        onDropdownAddItem: function(value, text, html, e){}
 
     };
 
