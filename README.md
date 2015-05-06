@@ -14,6 +14,10 @@ Documentation and Demo : [http://projects.zellerda.com/tokenize](http://projects
 Changelog
 ---------
 
+jQuery Tokenize 2.4
+ - Add sortable option (experimental)
+ - [Issue #31] Add new event when an element is added to dropdown
+
 jQuery Tokenize 2.3.2 - 28 April 2015
  - Fix clear method
 
