@@ -355,28 +355,26 @@
         keyup: function(e){
 
             this.updatePlaceholder();
-            if(e.keyCode != this.options.validator){
-                switch(e.keyCode){
-                    case KEYS.TAB:
-                    case KEYS.ENTER:
-                    case KEYS.ESCAPE:
-                    case KEYS.ARROW_UP:
-                    case KEYS.ARROW_DOWN:
-                        break;
+            switch(e.keyCode){
+                case KEYS.TAB:
+                case KEYS.ENTER:
+                case KEYS.ESCAPE:
+                case KEYS.ARROW_UP:
+                case KEYS.ARROW_DOWN:
+                    break;
 
-                    case KEYS.BACKSPACE:
-                        if(this.searchInput.val()){
-                            this.search();
-                        } else {
-                            this.dropdownHide();
-                        }
-                        break;
-                    default:
-                        if(this.searchInput.val()){
-                            this.search();
-                        }
-                        break;
-                }
+                case KEYS.BACKSPACE:
+                    if(this.searchInput.val()){
+                        this.search();
+                    } else {
+                        this.dropdownHide();
+                    }
+                    break;
+                default:
+                    if(this.searchInput.val()){
+                        this.search();
+                    }
+                    break;
             }
 
         },
