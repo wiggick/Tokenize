@@ -458,10 +458,10 @@
         debounce: function(func, threshold){
 
             var obj = this, args = arguments;
-            function delayed(){
+            var delayed = function(){
                 func.apply(obj, args);
                 debounce_timeout = null;
-            }
+            };
             if(debounce_timeout){
                 clearTimeout(debounce_timeout);
             }
