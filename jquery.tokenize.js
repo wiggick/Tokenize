@@ -31,6 +31,9 @@
         COMMA: 188
     };
 
+    // Debounce timeout
+    var debounce_timeout = null;
+
     // Data storage constant
     var DATA = 'tokenize';
 
@@ -452,23 +455,23 @@
 
         },
 
-        debounce: function(func, wait){
+        debounce: function(func, threshold){
 
-            var $this = this;
-            var timeout;
-            var later = function(){
-                clearTimeout(timeout);
-                func.call($this);
-            };
-
-            if(timeout){
-                clearTimeout(timeout);
+            var obj = this, args = arguments;
+            function delayed(){
+                func.apply(obj, args);
+                debounce_timeout = null;
             }
+            if(debounce_timeout){
+                clearTimeout(debounce_timeout);
+            }
+            debounce_timeout = setTimeout(delayed, threshold || this.options.debounce);
 
-            timeout = setTimeout(later, wait);
         },
 
         tokenAdd: function(value, text, first){
+
+            value = this.escape(value);
 
             if(value == undefined || value == ''){
                 return false;
@@ -563,21 +566,33 @@
         },
 
         disable: function(){
+
             this.select.prop('disabled', true);
             this.searchInput.prop('disabled', true);
             this.container.addClass('Disabled');
             if(this.options.sortable){
                 this.tokensContainer.sortable('disable')
             }
+
         },
 
         enable: function(){
+
             this.select.prop('disabled', false);
             this.searchInput.prop('disabled', false);
             this.container.removeClass('Disabled');
             if(this.options.sortable){
                 this.tokensContainer.sortable('enable')
             }
+
+        },
+
+        escape: function(string){
+
+            return String(string).replace(/["]/g, function(){
+                return '';
+            });
+
         }
 
     });
