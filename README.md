@@ -15,7 +15,10 @@ Documentation and Demo : [http://projects.zellerda.com/tokenize](http://projects
 
 Changelog
 ---------
-
+jQuery Tokenize 2.4.1 - 1 June 2015
+ - [Issue #36] Fix jquery exception when enter doubles quotes
+ - [Issue #35] Fix debounce function
+ 
 jQuery Tokenize 2.4 - 18 May 2015
  - Add sortable option (experimental)
  - [Issue #31] Add new event when an element is added to dropdown
