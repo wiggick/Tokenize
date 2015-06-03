@@ -119,7 +119,12 @@
                 }
             });
 
+            this.searchInput.on('blur', function(){
+                $this.tokensContainer.removeClass('Focused');
+            });
+
             this.searchInput.on('focus click', function(){
+                $this.tokensContainer.addClass('Focused');
                 if($this.options.displayDropdownOnFocus && $this.options.datas == 'select'){
                     $this.search();
                 }
