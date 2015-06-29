@@ -27,8 +27,7 @@
         ENTER: 13,
         ESCAPE: 27,
         ARROW_UP: 38,
-        ARROW_DOWN: 40,
-        COMMA: 188
+        ARROW_DOWN: 40
     };
 
     // Debounce timeout
@@ -137,6 +136,10 @@
 
             this.searchInput.on('keyup', function(e){
                 $this.keyup(e);
+            });
+
+            this.searchInput.on('keypress', function(e){
+                $this.keypress(e);
             });
 
             this.searchInput.on('paste', function(){
@@ -302,60 +305,64 @@
 
         },
 
-        keydown: function(e){
+        keypress: function(e){
 
-            if(e.keyCode == KEYS.COMMA){
+            if(String.fromCharCode(e.which) == this.options.delimiter){
                 e.preventDefault();
                 this.tokenAdd(this.searchInput.val(), '');
-            } else {
-                switch(e.keyCode){
-                    case KEYS.BACKSPACE:
-                        if(this.searchInput.val().length == 0){
-                            e.preventDefault();
-                            if($('li.Token.PendingDelete', this.tokensContainer).length){
-                                this.tokenRemove($('li.Token.PendingDelete').attr('data-value'));
-                            } else {
-                                $('li.Token:last', this.tokensContainer).addClass('PendingDelete');
-                            }
-                            this.dropdownHide();
-                        }
-                        break;
+            }
 
-                    case KEYS.TAB:
-                    case KEYS.ENTER:
-                        if($('li.Hover', this.dropdown).length){
-                            var element = $('li.Hover', this.dropdown);
-                            e.preventDefault();
-                            this.tokenAdd(element.attr('data-value'), element.attr('data-text'));
+        },
+
+        keydown: function(e){
+
+            switch(e.keyCode){
+                case KEYS.BACKSPACE:
+                    if(this.searchInput.val().length == 0){
+                        e.preventDefault();
+                        if($('li.Token.PendingDelete', this.tokensContainer).length){
+                            this.tokenRemove($('li.Token.PendingDelete').attr('data-value'));
                         } else {
-                            if(this.searchInput.val()){
-                                e.preventDefault();
-                                this.tokenAdd(this.searchInput.val(), '');
-                            }
+                            $('li.Token:last', this.tokensContainer).addClass('PendingDelete');
                         }
-                        this.resetPendingTokens();
-                        break;
-
-                    case KEYS.ESCAPE:
-                        this.resetSearchInput();
                         this.dropdownHide();
-                        this.resetPendingTokens();
-                        break;
+                    }
+                    break;
 
-                    case KEYS.ARROW_UP:
+                case KEYS.TAB:
+                case KEYS.ENTER:
+                    if($('li.Hover', this.dropdown).length){
+                        var element = $('li.Hover', this.dropdown);
                         e.preventDefault();
-                        this.dropdownPrev();
-                        break;
+                        this.tokenAdd(element.attr('data-value'), element.attr('data-text'));
+                    } else {
+                        if(this.searchInput.val()){
+                            e.preventDefault();
+                            this.tokenAdd(this.searchInput.val(), '');
+                        }
+                    }
+                    this.resetPendingTokens();
+                    break;
 
-                    case KEYS.ARROW_DOWN:
-                        e.preventDefault();
-                        this.dropdownNext();
-                        break;
+                case KEYS.ESCAPE:
+                    this.resetSearchInput();
+                    this.dropdownHide();
+                    this.resetPendingTokens();
+                    break;
 
-                    default:
-                        this.resetPendingTokens();
-                        break;
-                }
+                case KEYS.ARROW_UP:
+                    e.preventDefault();
+                    this.dropdownPrev();
+                    break;
+
+                case KEYS.ARROW_DOWN:
+                    e.preventDefault();
+                    this.dropdownNext();
+                    break;
+
+                default:
+                    this.resetPendingTokens();
+                    break;
             }
 
         },
@@ -625,6 +632,7 @@
         searchParam: 'search',
         searchMaxLength: 0,
         debounce: 0,
+        delimiter: ',',
         newElements: true,
         nbDropdownElements: 10,
         displayDropdownOnFocus: false,
