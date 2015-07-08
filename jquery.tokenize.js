@@ -16,7 +16,7 @@
  *
  * @author      David Zeller <me@zellerda.com>
  * @license     http://www.opensource.org/licenses/BSD-3-Clause New BSD license
- * @version     2.4.2
+ * @version     2.4.3
  */
 (function($, tokenize){
 
@@ -408,7 +408,7 @@
                 var found = false, regexp = new RegExp(this.searchInput.val().replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), 'i');
                 this.dropdownReset();
 
-                $('option', this.select).not(':selected').each(function(){
+                $('option', this.select).not(':selected, :disabled').each(function(){
                     if(count <= $this.options.nbDropdownElements){
                         if(regexp.test($(this).html())){
                             $this.dropdownAddItem($(this).attr('value'), $(this).html());
