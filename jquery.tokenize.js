@@ -16,7 +16,7 @@
  *
  * @author      David Zeller <me@zellerda.com>
  * @license     http://www.opensource.org/licenses/BSD-3-Clause New BSD license
- * @version     2.4.4
+ * @version     2.4.2
  */
 (function($, tokenize){
 
@@ -519,7 +519,6 @@
                     .attr('value', value)
                     .attr('data-type', 'custom')
                     .html(text);
-
                 this.select.append(option);
             } else {
                 this.resetSearchInput();
@@ -616,9 +615,11 @@
         }
 
         this.each(function(){
-            var obj = new $.tokenize($.extend({}, $.fn.tokenize.defaults, options));
-            obj.init($(this));
-            $(this).data(DATA, obj);
+            if(!$(this).data(DATA)){
+                var obj = new $.tokenize($.extend({}, $.fn.tokenize.defaults, options));
+                obj.init($(this));
+                $(this).data(DATA, obj);
+            }
         });
 
         return this;
