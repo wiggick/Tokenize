@@ -543,7 +543,7 @@
             this.resetSearchInput();
             this.dropdownHide();
 
-            return true;
+            return this;
 
         },
 
@@ -563,6 +563,8 @@
             this.resizeSearchInput();
             this.dropdownHide();
 
+            return this;
+
         },
 
         clear: function(){
@@ -573,6 +575,9 @@
             });
 
             this.options.onClear(this);
+            this.dropdownHide();
+
+            return this;
 
         },
 
@@ -585,6 +590,8 @@
                 this.tokensContainer.sortable('disable')
             }
 
+            return this;
+
         },
 
         enable: function(){
@@ -595,6 +602,8 @@
             if(this.options.sortable){
                 this.tokensContainer.sortable('enable')
             }
+
+            return this;
 
         },
 
