@@ -34,6 +34,11 @@ div.Tokenize ul.TokensContainer {
     user-select: none;
 }
 
+div.Tokenize ul.TokensContainer.Autosize {
+    height: auto;
+    padding-bottom: 5px;
+}
+
 div.Tokenize.Disabled ul.TokensContainer,
 div.Tokenize.Disabled ul.TokensContainer input {
     cursor: not-allowed;

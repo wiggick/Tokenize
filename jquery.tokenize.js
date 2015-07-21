@@ -66,6 +66,11 @@
             this.tokensContainer = $('<ul />')
                 .addClass('TokensContainer');
 
+            if(this.options.autosize){
+                this.tokensContainer
+                    .addClass('Autosize');
+            }
+
             this.searchToken = $('<li />')
                 .addClass('TokenSearch')
                 .appendTo(this.tokensContainer);
@@ -644,6 +649,7 @@
         debounce: 0,
         delimiter: ',',
         newElements: true,
+        autosize: false,
         nbDropdownElements: 10,
         displayDropdownOnFocus: false,
         maxElements: 0,
