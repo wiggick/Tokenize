@@ -19,9 +19,14 @@ jQuery Tokenize 2.4.2
  - [Issue #37] Add Focused class on Tokenize:focus
  - [Issue #43] Fix delimiter for non-english keyboard layouts
  - [Issue #44] Remove disabled element from search
+ - [Issue #48] Add resize option for TokensContainer block
+ - [Issue #52] Add remap function
+ - [Issue #53] Small changes in attribute set
  - Remove selection on TokensContainer
  - Add delimiter option
+ - Return the object for each api method
  - Fix initialization of tokenize when calling twice
+ - Fix missing bottom padding
 
 jQuery Tokenize 2.4.1 - 1 June 2015
  - [Issue #36] Fix jquery exception when enter doubles quotes
