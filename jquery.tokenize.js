@@ -641,6 +641,7 @@
 
             this.resetSearchInput();
             this.dropdownHide();
+            this.updateOrder();
 
             return this;
 
@@ -667,6 +668,7 @@
             this.options.onRemoveToken(value, this);
             this.resizeSearchInput();
             this.dropdownHide();
+            this.updateOrder();
 
             return this;
 
