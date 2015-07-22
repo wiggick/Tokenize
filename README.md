@@ -15,6 +15,9 @@ Documentation and Demo : [http://projects.zellerda.com/tokenize](http://projects
 
 Changelog
 ---------
+jQuery Tokenize 2.4.3 - 22 July 2015
+ - Fix remap function
+ 
 jQuery Tokenize 2.4.2 - 22 July 2015
  - [Issue #37] Add Focused class on Tokenize:focus
  - [Issue #43] Fix delimiter for non-english keyboard layouts
