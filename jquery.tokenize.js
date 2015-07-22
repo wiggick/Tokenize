@@ -16,7 +16,7 @@
  *
  * @author      David Zeller <me@zellerda.com>
  * @license     http://www.opensource.org/licenses/BSD-3-Clause New BSD license
- * @version     2.4.3
+ * @version     2.4.4
  */
 (function($, tokenize){
 
@@ -47,6 +47,11 @@
 
     $.extend($.tokenize.prototype, {
 
+        /**
+         * Init tokenize object
+         *
+         * @param {jQuery} el jQuery object of the select
+         */
         init: function(el){
 
             var $this = this;
@@ -174,6 +179,9 @@
 
         },
 
+        /**
+         * Update elements order in the select html element
+         */
         updateOrder: function(){
 
             var previous, current, $this = this;
@@ -186,10 +194,14 @@
                 }
                 previous = current;
             });
+
             this.options.onReorder(this);
 
         },
 
+        /**
+         * Update placeholder visiblity
+         */
         updatePlaceholder: function(){
 
             if(this.options.placeholder != false){
@@ -207,12 +219,18 @@
 
         },
 
+        /**
+         * Display the dropdown
+         */
         dropdownShow: function(){
 
             this.dropdown.show();
 
         },
 
+        /**
+         * Move the focus on the dropdown previous element
+         */
         dropdownPrev: function(){
 
             if($('li.Hover', this.dropdown).length > 0){
@@ -228,6 +246,9 @@
 
         },
 
+        /**
+         * Move the focus on the dropdown next element
+         */
         dropdownNext: function(){
 
             if($('li.Hover', this.dropdown).length > 0){
@@ -243,6 +264,14 @@
 
         },
 
+        /**
+         * Add an item to the dropdown
+         *
+         * @param {string} value The value of the item
+         * @param {string} text The display text of the item
+         * @param {string} [html] The html display text of the item (override previous parameter)
+         * @return {$.tokenize}
+         */
         dropdownAddItem: function(value, text, html){
 
             if(html == undefined){
@@ -269,10 +298,14 @@
 
             this.dropdown.append(item);
             this.options.onDropdownAddItem(value, text, html, this);
-            return true;
+
+            return this;
 
         },
 
+        /**
+         * Hide dropdown
+         */
         dropdownHide: function(){
 
             this.dropdownReset();
@@ -280,12 +313,18 @@
 
         },
 
+        /**
+         * Reset dropdown
+         */
         dropdownReset: function(){
 
             this.dropdown.html('');
 
         },
 
+        /**
+         * Resize search input according the value length
+         */
         resizeSearchInput: function(){
 
             this.searchInput.attr('size', (this.searchInput.val().length > 1 ? this.searchInput.val().length : 5));
@@ -293,6 +332,9 @@
 
         },
 
+        /**
+         * Reset search input
+         */
         resetSearchInput: function(){
 
             this.searchInput.val("");
@@ -300,12 +342,20 @@
 
         },
 
+        /**
+         * Reset pending tokens
+         */
         resetPendingTokens: function(){
 
             $('li.PendingDelete', this.tokensContainer).removeClass('PendingDelete');
 
         },
 
+        /**
+         * Keypress
+         *
+         * @param {Event} e
+         */
         keypress: function(e){
 
             if(String.fromCharCode(e.which) == this.options.delimiter){
@@ -315,6 +365,11 @@
 
         },
 
+        /**
+         * Keydown
+         *
+         * @param {Event} e
+         */
         keydown: function(e){
 
             switch(e.keyCode){
@@ -368,6 +423,11 @@
 
         },
 
+        /**
+         * Keyup
+         *
+         * @param {Event} e
+         */
         keyup: function(e){
 
             this.updatePlaceholder();
@@ -395,6 +455,9 @@
 
         },
 
+        /**
+         * Search an element in the select or using ajax
+         */
         search: function(){
 
             var $this = this;
@@ -468,6 +531,11 @@
 
         },
 
+        /**
+         * Debounce method for ajax request
+         * @param {function} func
+         * @param {number} threshold
+         */
         debounce: function(func, threshold){
 
             var obj = this, args = arguments;
@@ -482,6 +550,14 @@
 
         },
 
+        /**
+         * Add a token in container
+         *
+         * @param {string} value The value of the token
+         * @param {string} text The label of the token (use value if empty)
+         * @param {boolean} first If true, onAddToken event will be not called
+         * @return {$.tokenize}
+         */
         tokenAdd: function(value, text, first){
 
             value = this.escape(value);
@@ -548,6 +624,12 @@
 
         },
 
+        /**
+         * Remove a token
+         *
+         * @param {string} value The value of the token who has to be removed
+         * @returns {$.tokenize}
+         */
         tokenRemove: function(value){
 
             var option = $('option[value="' + value + '"]', this.select);
@@ -568,6 +650,11 @@
 
         },
 
+        /**
+         * Clear tokens
+         *
+         * @returns {$.tokenize}
+         */
         clear: function(){
 
             var $this = this;
@@ -583,6 +670,11 @@
 
         },
 
+        /**
+         * Disable tokenize
+         *
+         * @returns {$.tokenize}
+         */
         disable: function(){
 
             this.select.prop('disabled', true);
@@ -596,6 +688,11 @@
 
         },
 
+        /**
+         * Enable tokenize
+         *
+         * @returns {$.tokenize}
+         */
         enable: function(){
 
             this.select.prop('disabled', false);
@@ -609,6 +706,12 @@
 
         },
 
+        /**
+         * Refresh tokens reflecting select options
+         *
+         * @param {boolean} first If true, onAddToken event will be not called
+         * @returns {$.tokenize}
+         */
         remap: function(first){
 
             var $this = this;
@@ -624,8 +727,27 @@
                 $this.tokenAdd($(this).val(), $(this).html(), first);
             });
 
+            return this;
+
         },
 
+        /**
+         * Retrieve tokens value to an array
+         *
+         * @returns {Array}
+         */
+        toArray: function(){
+
+            return (Array.isArray(this.select.val()) ? this.select.val() : [this.select.val()]);
+
+        },
+
+        /**
+         * Escape double quote
+         *
+         * @param {string} string
+         * @returns {string}
+         */
         escape: function(string){
 
             return String(string).replace(/["]/g, function(){
@@ -645,8 +767,8 @@
         this.each(function(){
             if(!$(this).data(DATA)){
                 var obj = new $.tokenize($.extend({}, $.fn.tokenize.defaults, options));
-                obj.init($(this));
                 $(this).data(DATA, obj);
+                obj.init($(this));
             }
         });
 
