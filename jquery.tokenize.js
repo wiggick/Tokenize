@@ -612,6 +612,7 @@
         remap: function(first){
 
             var $this = this;
+            var tmp = $("option:selected", this.select);
 
             if(first == undefined){
                 first = false;
@@ -619,7 +620,7 @@
 
             this.clear();
 
-            $("option:selected", this.select).each(function(){
+            tmp.each(function(){
                 $this.tokenAdd($(this).val(), $(this).html(), first);
             });
 
