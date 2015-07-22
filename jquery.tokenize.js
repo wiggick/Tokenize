@@ -16,7 +16,7 @@
  *
  * @author      David Zeller <me@zellerda.com>
  * @license     http://www.opensource.org/licenses/BSD-3-Clause New BSD license
- * @version     2.4.4
+ * @version     2.5
  */
 (function($, tokenize){
 
@@ -36,6 +36,30 @@
     // Data storage constant
     var DATA = 'tokenize';
 
+    /**
+     * Get Tokenize object
+     *
+     * @param {Object} options
+     * @param {jQuery} el
+     * @returns {$.tokenize}
+     */
+    var getObject = function(options, el){
+
+        if(!el.data(DATA)){
+            var obj = new $.tokenize($.extend({}, $.fn.tokenize.defaults, options));
+            el.data(DATA, obj);
+            obj.init(el);
+        }
+
+        return el.data(DATA);
+
+    };
+
+    /**
+     * Tokenize constructor
+     *
+     * @param {Object} opts
+     */
     $.tokenize = function(opts){
 
         if(opts == undefined){
@@ -756,22 +780,30 @@
 
     });
 
+    /**
+     * Tokenize plugin
+     *
+     * @param {Object|undefined} [options]
+     * @returns {$.tokenize|jQuery}
+     */
     $.fn.tokenize = function(options){
 
         if(options == undefined){
             options = {};
         }
 
-        this.each(function(){
-            if(!$(this).data(DATA)){
-                var obj = new $.tokenize($.extend({}, $.fn.tokenize.defaults, options));
-                $(this).data(DATA, obj);
-                obj.init($(this));
-            }
-        });
+        var selector = this.filter('select');
 
-        return this;
-
+        if(selector.length > 1){
+            selector.each(function(){
+                getObject(options, $(this));
+            });
+            return selector;
+        }
+        else
+        {
+            return getObject(options, $(this));
+        }
     };
 
     $.fn.tokenize.defaults = {
