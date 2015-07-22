@@ -269,7 +269,7 @@
          *
          * @param {string} value The value of the item
          * @param {string} text The display text of the item
-         * @param {string} [html] The html display text of the item (override previous parameter)
+         * @param {string|undefined} [html] The html display text of the item (override previous parameter)
          * @return {$.tokenize}
          */
         dropdownAddItem: function(value, text, html){
@@ -278,26 +278,24 @@
                 html = text;
             }
 
-            if($('li[data-value="' + value + '"]', this.tokensContainer).length){
-                return false;
+            if(!$('li[data-value="' + value + '"]', this.tokensContainer).length){
+                var $this = this;
+                var item = $('<li />')
+                    .attr('data-value', value)
+                    .attr('data-text', text)
+                    .html(html)
+                    .on('click', function(e){
+                        e.stopImmediatePropagation();
+                        $this.tokenAdd($(this).attr('data-value'), $(this).attr('data-text'));
+                    }).on('mouseover', function(){
+                        $(this).addClass('Hover');
+                    }).on('mouseout', function(){
+                        $('li', $this.dropdown).removeClass('Hover');
+                    });
+
+                this.dropdown.append(item);
+                this.options.onDropdownAddItem(value, text, html, this);
             }
-
-            var $this = this;
-            var item = $('<li />')
-                .attr('data-value', value)
-                .attr('data-text', text)
-                .html(html)
-                .on('click', function(e){
-                    e.stopImmediatePropagation();
-                    $this.tokenAdd($(this).attr('data-value'), $(this).attr('data-text'));
-                }).on('mouseover', function(){
-                    $(this).addClass('Hover');
-                }).on('mouseout', function(){
-                    $('li', $this.dropdown).removeClass('Hover');
-                });
-
-            this.dropdown.append(item);
-            this.options.onDropdownAddItem(value, text, html, this);
 
             return this;
 
@@ -354,7 +352,7 @@
         /**
          * Keypress
          *
-         * @param {Event} e
+         * @param {object} e
          */
         keypress: function(e){
 
@@ -368,7 +366,7 @@
         /**
          * Keydown
          *
-         * @param {Event} e
+         * @param {object} e
          */
         keydown: function(e){
 
@@ -426,7 +424,7 @@
         /**
          * Keyup
          *
-         * @param {Event} e
+         * @param {object} e
          */
         keyup: function(e){
 
@@ -554,8 +552,8 @@
          * Add a token in container
          *
          * @param {string} value The value of the token
-         * @param {string} text The label of the token (use value if empty)
-         * @param {boolean} first If true, onAddToken event will be not called
+         * @param {string|undefined} [text] The label of the token (use value if empty)
+         * @param {boolean|undefined} [first] If true, onAddToken event will be not called
          * @return {$.tokenize}
          */
         tokenAdd: function(value, text, first){
@@ -563,7 +561,7 @@
             value = this.escape(value);
 
             if(value == undefined || value == ''){
-                return false;
+                return this;
             }
 
             if(text == undefined || text == ''){
@@ -576,7 +574,7 @@
 
             if(this.options.maxElements > 0 && $('li.Token', this.tokensContainer).length >= this.options.maxElements){
                 this.resetSearchInput();
-                return false;
+                return this;
             }
 
             var $this = this;
@@ -599,11 +597,11 @@
                 this.select.append(option);
             } else {
                 this.resetSearchInput();
-                return false;
+                return this;
             }
 
             if($('li.Token[data-value="' + value + '"]', this.tokensContainer).length > 0) {
-                return false;
+                return this;
             }
 
             $('<li />')
