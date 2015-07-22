@@ -15,6 +15,9 @@ Documentation and Demo : [http://projects.zellerda.com/tokenize](http://projects
 
 Changelog
 ---------
+jQuery Tokenize 2.5
+ - Add new api access (more easy)
+
 jQuery Tokenize 2.4.3 - 22 July 2015
  - Fix remap function
  
