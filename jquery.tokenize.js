@@ -611,12 +611,13 @@
                 });
 
             if($('option[value="' + value + '"]', this.select).length){
-                $('option[value="' + value + '"]', this.select).attr('selected', true);
+                $('option[value="' + value + '"]', this.select).attr('selected', true).prop('selected', true);
             } else if(this.options.newElements || (!this.options.newElements && $('li[data-value="' + value + '"]', this.dropdown).length > 0)) {
                 var option = $('<option />')
                     .attr('selected', true)
                     .attr('value', value)
                     .attr('data-type', 'custom')
+                    .prop('selected', true)
                     .html(text);
                 this.select.append(option);
             } else {
@@ -660,7 +661,7 @@
             if(option.attr('data-type') == 'custom'){
                 option.remove();
             } else {
-                option.removeAttr('selected');
+                option.removeAttr('selected').prop('selected', false);
             }
 
             $('li.Token[data-value="' + value + '"]', this.tokensContainer).remove();
@@ -762,7 +763,11 @@
          */
         toArray: function(){
 
-            return (Array.isArray(this.select.val()) ? this.select.val() : [this.select.val()]);
+            var output = [];
+            $("option:selected", this.select).each(function(){
+                output.push($(this).val());
+            });
+            return output;
 
         },
 
