@@ -11,7 +11,7 @@ jQuery Tokenize is a plugin which allows your users to select multiple items fro
  - Sortable items
  - Support jQuery 1.11+ and jQuery 2+
 
-Documentation and Demo : [http://projects.zellerda.com/tokenize](http://projects.zellerda.com/tokenize)
+Documentation and Demo : [https://www.zellerda.com/projects/jquery/tokenize](https://www.zellerda.com/projects/jquery/tokenize)
 
 Changelog
 ---------
