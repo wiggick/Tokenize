@@ -348,8 +348,8 @@
          * Resize search input according the value length
          */
         resizeSearchInput: function(){
-
-            this.searchInput.attr('size', (this.searchInput.val().length > 1 ? this.searchInput.val().length : 5));
+            
+            this.searchInput.attr('size', Number(this.searchInput.val().length)+5);
             this.updatePlaceholder();
 
         },
