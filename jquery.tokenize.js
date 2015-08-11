@@ -16,7 +16,7 @@
  *
  * @author      David Zeller <me@zellerda.com>
  * @license     http://www.opensource.org/licenses/BSD-3-Clause New BSD license
- * @version     2.5
+ * @version     2.5.1
  */
 (function($, tokenize){
 
@@ -208,18 +208,20 @@
          */
         updateOrder: function(){
 
-            var previous, current, $this = this;
-            $.each(this.tokensContainer.sortable('toArray', {attribute: 'data-value'}), function(k, v){
-                current = $('option[value="' + v + '"]', $this.select);
-                if(previous == undefined){
-                    current.prependTo($this.select);
-                } else {
-                    previous.after(current);
-                }
-                previous = current;
-            });
+            if(this.options.sortable){
+                var previous, current, $this = this;
+                $.each(this.tokensContainer.sortable('toArray', {attribute: 'data-value'}), function(k, v){
+                    current = $('option[value="' + v + '"]', $this.select);
+                    if(previous == undefined){
+                        current.prependTo($this.select);
+                    } else {
+                        previous.after(current);
+                    }
+                    previous = current;
+                });
 
-            this.options.onReorder(this);
+                this.options.onReorder(this);
+            }
 
         },
 
