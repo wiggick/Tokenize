@@ -15,7 +15,7 @@ Documentation and Demo : [https://www.zellerda.com/projects/jquery/tokenize](htt
 
 Changelog
 ---------
-jQuery Tokenize 2.5
+jQuery Tokenize 2.5 - 11 August 2015
  - [Issue #53][Issue #54] Fix Firefox behavior with selected attribute
  - Fix re-ordering of element when deleted
  - Fix some return values toArray() method
