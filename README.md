@@ -15,6 +15,9 @@ Documentation and Demo : [https://www.zellerda.com/projects/jquery/tokenize](htt
 
 Changelog
 ---------
+jQuery Tokenize 2.5.1 - 11 August 2015
+ - [Issue #59] Fix sortable call when sortable option is false
+
 jQuery Tokenize 2.5 - 11 August 2015
  - [Issue #53][Issue #54] Fix Firefox behavior with selected attribute
  - Fix re-ordering of element when deleted
