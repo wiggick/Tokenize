@@ -16,7 +16,7 @@
  *
  * @author      David Zeller <me@zellerda.com>
  * @license     http://www.opensource.org/licenses/BSD-3-Clause New BSD license
- * @version     2.5.1
+ * @version     2.5.2
  */
 (function($, tokenize){
 
@@ -226,11 +226,11 @@
         },
 
         /**
-         * Update placeholder visiblity
+         * Update placeholder visibility
          */
         updatePlaceholder: function(){
 
-            if(this.options.placeholder != false){
+            if(this.options.placeholder){
                 if(this.placeholder == undefined){
                     this.placeholder = $('<li />').addClass('Placeholder').html(this.options.placeholder);
                     this.placeholder.insertBefore($('li:first-child', this.tokensContainer));
@@ -300,9 +300,7 @@
          */
         dropdownAddItem: function(value, text, html){
 
-            if(html == undefined){
-                html = text;
-            }
+            html = html || text;
 
             if(!$('li[data-value="' + value + '"]', this.tokensContainer).length){
                 var $this = this;
@@ -527,7 +525,7 @@
                                 $this.dropdownReset();
                                 $.each(data, function(key, val){
                                     if(count <= $this.options.nbDropdownElements){
-                                        var html = undefined;
+                                        var html;
                                         if(val[$this.options.htmlField]){
                                             html = val[$this.options.htmlField];
                                         }
@@ -545,8 +543,8 @@
                             }
                             $this.dropdownHide();
                         },
-                        error: function(XHR, textStatus) {
-                            console.log("Error : " + textStatus);
+                        error: function(xhr, text_status) {
+                            $this.options.onAjaxError($this, xhr, text_status)
                         }
                     });
                 }, this.options.debounce);
@@ -590,13 +588,8 @@
                 return this;
             }
 
-            if(text == undefined || text == ''){
-                text = value;
-            }
-
-            if(first == undefined){
-                first = false;
-            }
+            text = text || value;
+            first = first || false;
 
             if(this.options.maxElements > 0 && $('li.Token', this.tokensContainer).length >= this.options.maxElements){
                 this.resetSearchInput();
@@ -708,7 +701,7 @@
             this.searchInput.prop('disabled', true);
             this.container.addClass('Disabled');
             if(this.options.sortable){
-                this.tokensContainer.sortable('disable')
+                this.tokensContainer.sortable('disable');
             }
 
             return this;
@@ -726,7 +719,7 @@
             this.searchInput.prop('disabled', false);
             this.container.removeClass('Disabled');
             if(this.options.sortable){
-                this.tokensContainer.sortable('enable')
+                this.tokensContainer.sortable('enable');
             }
 
             return this;
@@ -744,9 +737,7 @@
             var $this = this;
             var tmp = $("option:selected", this.select);
 
-            if(first == undefined){
-                first = false;
-            }
+            first = first || false;
 
             this.clear();
 
@@ -797,9 +788,7 @@
      */
     $.fn.tokenize = function(options){
 
-        if(options == undefined){
-            options = {};
-        }
+        options = options || {};
 
         var selector = this.filter('select');
 
@@ -838,7 +827,8 @@
         onRemoveToken: function(value, e){},
         onClear: function(e){},
         onReorder: function(e){},
-        onDropdownAddItem: function(value, text, html, e){}
+        onDropdownAddItem: function(value, text, html, e){},
+        onAjaxError: function(e, xhr, text_status){}
 
     };
 
