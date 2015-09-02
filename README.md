@@ -15,6 +15,9 @@ Documentation and Demo : [https://www.zellerda.com/projects/jquery/tokenize](htt
 
 Changelog
 ---------
+jQuery Tokenize 2.5.2
+ - [Issue #64] Add ajax error handler in option
+
 jQuery Tokenize 2.5.1 - 11 August 2015
  - [Issue #59] Fix sortable call when sortable option is false
 
