@@ -544,7 +544,7 @@
                             $this.dropdownHide();
                         },
                         error: function(xhr, text_status) {
-                            $this.options.onAjaxError($this, xhr, text_status)
+                            $this.options.onAjaxError($this, xhr, text_status);
                         }
                     });
                 }, this.options.debounce);
