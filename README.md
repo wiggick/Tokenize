@@ -17,6 +17,7 @@ Changelog
 ---------
 jQuery Tokenize 2.5.2
  - [Issue #64] Add ajax error handler in option
+ - [Issue #66] Add searchMinLength parameter
 
 jQuery Tokenize 2.5.1 - 11 August 2015
  - [Issue #59] Fix sortable call when sortable option is false

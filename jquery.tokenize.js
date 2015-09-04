@@ -485,7 +485,8 @@
             var $this = this;
             var count = 1;
 
-            if(this.options.maxElements > 0 && $('li.Token', this.tokensContainer).length >= this.options.maxElements){
+            if((this.options.maxElements > 0 && $('li.Token', this.tokensContainer).length >= this.options.maxElements) ||
+                this.searchInput.val().length < this.options.searchMinLength){
                 return false;
             }
 
@@ -810,6 +811,7 @@
         placeholder: false,
         searchParam: 'search',
         searchMaxLength: 0,
+        searchMinLength: 0,
         debounce: 0,
         delimiter: ',',
         newElements: true,
