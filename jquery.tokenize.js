@@ -134,7 +134,7 @@
                     }).disableSelection();
                 } else {
                     this.options.sortable = false;
-                    console.log('jQuery UI is not loaded, sortable option has been disabled');
+                    console.error('jQuery UI is not loaded, sortable option has been disabled');
                 }
             }
 
@@ -785,7 +785,7 @@
      * Tokenize plugin
      *
      * @param {Object|undefined} [options]
-     * @returns {$.tokenize|jQuery}
+     * @returns {$.tokenize|Array}
      */
     $.fn.tokenize = function(options){
 
@@ -794,10 +794,11 @@
         var selector = this.filter('select');
 
         if(selector.length > 1){
+            var objects = [];
             selector.each(function(){
-                getObject(options, $(this));
+                objects.push(getObject(options, $(this)));
             });
-            return selector;
+            return objects;
         }
         else
         {
