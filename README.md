@@ -15,7 +15,7 @@ Documentation and Demo : [https://www.zellerda.com/projects/jquery/tokenize](htt
 
 Changelog
 ---------
-jQuery Tokenize 2.5.2
+jQuery Tokenize 2.5.2 - 24 October 2015
  - [Issue #57] Add bower package definition
  - [Issue #64] Add ajax error handler in option
  - [Issue #66] Add searchMinLength parameter
