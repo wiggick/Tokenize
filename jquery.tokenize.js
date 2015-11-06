@@ -16,7 +16,7 @@
  *
  * @author      David Zeller <me@zellerda.com>
  * @license     http://www.opensource.org/licenses/BSD-3-Clause New BSD license
- * @version     2.5.2
+ * @version     2.6
  */
 (function($, tokenize){
 
@@ -251,6 +251,7 @@
         dropdownShow: function(){
 
             this.dropdown.show();
+            this.options.onDropdownShow(this);
 
         },
 
@@ -835,6 +836,7 @@
         onClear: function(e){},
         onReorder: function(e){},
         onDropdownAddItem: function(value, text, html, e){},
+        onDropdownShow: function(e){},
         onAjaxError: function(e, xhr, text_status){}
 
     };
