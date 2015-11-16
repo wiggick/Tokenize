@@ -520,7 +520,7 @@
                 this.debounce(function(){
                     $.ajax({
                         url: $this.options.datas,
-                        data: $this.options.searchParam + "=" + $this.searchInput.val(),
+                        data: $this.options.searchParam + "=" + encodeURIComponent($this.searchInput.val()),
                         dataType: $this.options.dataType,
                         success: function(data){
                             if(data){
