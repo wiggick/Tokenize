@@ -20,6 +20,7 @@ jQuery Tokenize 2.6
  - [Issue #80] Fix jQuery 2.1.4 ajax issue when using hash in search input
  - [Issue #81] Add onDuplicateToken option
  - [Issue #82] Adding trim on adding tokens
+ - [Issue #84] Adding the possibility to set multiples delimiters
 
 jQuery Tokenize 2.5.2 - 24 October 2015
  - [Issue #57] Add bower package definition

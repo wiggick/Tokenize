@@ -381,7 +381,19 @@
          */
         keypress: function(e){
 
-            if(String.fromCharCode(e.which) == this.options.delimiter){
+            var delimiter = false;
+
+            if(Array.isArray(this.options.delimiter)){
+                if(this.options.delimiter.indexOf(String.fromCharCode(e.which)) >= 0){
+                    delimiter = true;
+                }
+            } else {
+                if(String.fromCharCode(e.which) == this.options.delimiter){
+                    delimiter = true;
+                }
+            }
+
+            if(delimiter){
                 e.preventDefault();
                 this.tokenAdd(this.searchInput.val(), '');
             }
