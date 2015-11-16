@@ -584,7 +584,7 @@
          */
         tokenAdd: function(value, text, first){
 
-            value = this.escape(value);
+            value = this.escape(value).trim();
 
             if(value == undefined || value == ''){
                 return this;
