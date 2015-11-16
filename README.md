@@ -18,6 +18,7 @@ Changelog
 jQuery Tokenize 2.6
  - [Issue #69] Add onDropdownShow event
  - [Issue #80] Fix jQuery 2.1.4 ajax issue when using hash in search input
+ - [Issue #81] Add onDuplicateToken option
  - [Issue #82] Adding trim on adding tokens
 
 jQuery Tokenize 2.5.2 - 24 October 2015
