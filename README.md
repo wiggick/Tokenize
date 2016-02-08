@@ -1,3 +1,5 @@
+I'm currently developping a new version of tokenize, it can be found here https://github.com/zellerda/Tokenize2
+
 Tokenize
 ==========
 
