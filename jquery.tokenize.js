@@ -14,9 +14,9 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the new BSD license.
  *
- * @author      David Zeller <me@zellerda.com>
+ * @author      Christopher Wigginton <c_wigginton@yahoo.com>,  modified from original author David Zeller <me@zellerda.com>
  * @license     http://www.opensource.org/licenses/BSD-3-Clause New BSD license
- * @version     2.6
+ * @version     <fork> 2.7
  */
 (function($, tokenize){
 
@@ -81,9 +81,17 @@
             var $this = this;
             this.select = el.attr('multiple', 'multiple').css({margin: 0, padding: 0, border: 0}).hide();
 
-            this.container = $('<div />')
-                .attr('class', this.select.attr('class'))
-                .addClass('Tokenize');
+            
+            if(this.options.width == 0){
+	            this.container = $('<div />')
+	            .attr('class', this.select.attr('class'))
+	            .addClass('Tokenize');
+            }else{
+            	 this.container = $('<div />')
+ 	            .attr('class', this.select.attr('class'))
+ 	            .css('width',this.options.width)
+ 	            .addClass('Tokenize');
+            }
 
             if(this.options.maxElements == 1){
                 this.container.addClass('OnlyOne');
@@ -536,8 +544,24 @@
                         dataType: $this.options.dataType,
                         success: function(data){
                             if(data){
+                            	if(data.options){
+                            		var results = data.options;
+                            	}else{
+                            		var results = data;
+                            	}
+                            	
+                            	if(data.count && data.count > $this.options.maxElements){
+                            		if($this.options.errorMsgField != ''){
+                            			$('#' + $this.options.errorMessageField).html(data.count + ' records returned.  Result limited to ' + $this.options.maxElements);
+                            		}
+                            		$('#' + $this.options.errorMessageField ).fadeOut( 3000, function() {
+                            			$('#' + $this.options.errorMessageField).html('&nbsp;');
+                            			$('#' + $this.options.errorMessageField ).fadeIn();
+                            		});
+                            	}
+                           	
                                 $this.dropdownReset();
-                                $.each(data, function(key, val){
+                                $.each(results, function(key, val){
                                     if(count <= $this.options.nbDropdownElements){
                                         var html;
                                         if(val[$this.options.htmlField]){
@@ -641,13 +665,18 @@
             if($('li.Token[data-value="' + value + '"]', this.tokensContainer).length > 0) {
                 return this;
             }
+       
 
-            $('<li />')
+            var oToken = $('<li />')
                 .addClass('Token')
                 .attr('data-value', value)
                 .append('<span>' + text + '</span>')
                 .prepend(close_btn)
                 .insertBefore(this.searchToken);
+            
+            if(this.options.singleColumn == false){
+            	oToken.css('float','left');
+            }
 
             if(!first){
                 this.options.onAddToken(value, text, this);
@@ -838,6 +867,8 @@
         delimiter: ',',
         newElements: true,
         autosize: false,
+        width: 0,
+        singleColumn: false,
         nbDropdownElements: 10,
         displayDropdownOnFocus: false,
         maxElements: 0,
@@ -846,6 +877,7 @@
         valueField: 'value',
         textField: 'text',
         htmlField: 'html',
+        errorMessageField: '',
 
         onAddToken: function(value, text, e){},
         onRemoveToken: function(value, e){},
